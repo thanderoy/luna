@@ -1,0 +1,7 @@
+{
+  "name": "Luna - Moon Phase Indicator",
+  "description": "Displays current moon phase.",
+  "uuid": "luna@github.io",
+  "shell-version": ["46"],
+  "url": "https://github.com/thanderoy/isalive"
+}

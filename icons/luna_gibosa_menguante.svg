@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- Waning Gibbous -->
+  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M12 2 A10 10 0 0 0 12 22 A3 3 0 0 1 12 2" fill="currentColor"/>
+</svg>
