@@ -1,6 +1,89 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
- <!-- First Quarter -->
-  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-  <path d="M12 2 A10 10 0 0 1 12 22 A10 10 0 0 0 12 2" fill="currentColor"/>
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.2"
+   width="6.4498439mm"
+   height="13.22917mm"
+   viewBox="0 0 644.98439 1322.917"
+   preserveAspectRatio="xMidYMid"
+   fill-rule="evenodd"
+   stroke-width="28.222"
+   stroke-linejoin="round"
+   xml:space="preserve"
+   id="svg66"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+ <defs
+   class="ClipPathGroup"
+   id="defs8"><clipPath
+     id="presentation_clip_path-3"
+     clipPathUnits="userSpaceOnUse">
+   <rect
+   x="0"
+   y="0"
+   width="21000"
+   height="29700"
+   id="rect786" />
+  </clipPath></defs>
+ <defs
+   class="TextShapeIndex"
+   id="defs12" />
+ <defs
+   class="EmbeddedBulletChars"
+   id="defs44" />
+ 
+ 
+<g
+   style="fill-rule:evenodd;stroke-width:28.222;stroke-linejoin:round"
+   id="g892"
+   transform="matrix(0.10594351,0,0,0.10594351,-1148.6393,-857.18896)"><g
+     id="g833">
+  <g
+   id="id2-0"
+   class="Master_Slide">
+   <g
+   id="bg-id2-9"
+   class="Background" />
+   <g
+   id="bo-id2-3"
+   class="BackgroundObjects" />
+  </g>
+ </g><g
+     class="SlideGroup"
+     id="g848">
+  <g
+   id="g846">
+   <g
+   id="container-id1-6">
+    <g
+   id="id1-0"
+   class="Slide"
+   clip-path="url(#presentation_clip_path-3)">
+     <g
+   class="Page"
+   id="g842">
+      <g
+   class="com.sun.star.drawing.ClosedBezierShape"
+   id="g840">
+       <g
+   id="id3-6">
+        <rect
+   class="BoundingBox"
+   stroke="none"
+   fill="none"
+   x="10842"
+   y="8091"
+   width="6088"
+   height="12487"
+   id="rect835" />
+        <path
+   fill="#eeeeee"
+   stroke="none"
+   d="m 10842,8091 c 494,13 983,84 1457,211 525,140 1032,350 1506,624 475,274 910,608 1294,992 384,384 718,819 992,1293 274,475 484,982 624,1507 141,525 213,1068 213,1616 0,548 -72,1091 -213,1616 -140,525 -350,1032 -624,1507 -274,474 -608,909 -992,1293 -384,384 -819,718 -1293,992 -475,274 -982,484 -1507,624 -474,127 -963,198 -1457,211 z"
+   id="path837" />
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g></g></svg>

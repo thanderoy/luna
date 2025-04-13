@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.2"
+   width="68.187462mm"
+   height="13.22917mm"
+   viewBox="0 0 6818.7462 1322.917"
+   preserveAspectRatio="xMidYMid"
+   fill-rule="evenodd"
+   stroke-width="28.222"
+   stroke-linejoin="round"
+   xml:space="preserve"
+   id="svg66"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+ <defs
+   class="ClipPathGroup"
+   id="defs8"><clipPath
+     id="presentation_clip_path"
+     clipPathUnits="userSpaceOnUse">
+   <rect
+   x="0"
+   y="0"
+   width="21000"
+   height="29700"
+   id="rect2" />
+  </clipPath><clipPath
+     id="presentation_clip_path-3"
+     clipPathUnits="userSpaceOnUse">
+   <rect
+   x="0"
+   y="0"
+   width="21000"
+   height="29700"
+   id="rect786" />
+  </clipPath><clipPath
+     id="presentation_clip_path-2"
+     clipPathUnits="userSpaceOnUse">
+   <rect
+   x="0"
+   y="0"
+   width="21000"
+   height="29700"
+   id="rect1097" />
+  </clipPath><clipPath
+     id="presentation_clip_path-29"
+     clipPathUnits="userSpaceOnUse">
+   <rect
+   x="0"
+   y="0"
+   width="21000"
+   height="29700"
+   id="rect1767" />
+  </clipPath><clipPath
+     id="presentation_clip_path-6"
+     clipPathUnits="userSpaceOnUse">
+   <rect
+   x="0"
+   y="0"
+   width="21000"
+   height="29700"
+   id="rect2234" />
+  </clipPath><clipPath
+     id="presentation_clip_path-0"
+     clipPathUnits="userSpaceOnUse">
+   <rect
+   x="0"
+   y="0"
+   width="21000"
+   height="29700"
+   id="rect3655" />
+  </clipPath><clipPath
+     id="presentation_clip_path-8"
+     clipPathUnits="userSpaceOnUse">
+   <rect
+   x="0"
+   y="0"
+   width="21000"
+   height="29700"
+   id="rect4793" />
+  </clipPath></defs>
+ <defs
+   class="TextShapeIndex"
+   id="defs12" />
+ <defs
+   class="EmbeddedBulletChars"
+   id="defs44" />
+ 
+ <g
+   class="SlideGroup"
+   id="g64"
+   transform="matrix(0.10590959,0,0,0.10590959,-1025.5225,-841.87553)">
+  <g
+   id="g62">
+   <g
+   id="container-id1">
+    <g
+   id="id1"
+   class="Slide"
+   clip-path="url(#presentation_clip_path)">
+     <g
+   class="Page"
+   id="g58">
+      <g
+   class="com.sun.star.drawing.ClosedBezierShape"
+   id="g56">
+       <g
+   id="id3">
+        <rect
+   class="BoundingBox"
+   stroke="none"
+   fill="none"
+   x="9683"
+   y="7949"
+   width="7247"
+   height="12491"
+   id="rect51" />
+        <path
+   fill="#eeeeee"
+   stroke="none"
+   d="m 14716,15810 c 141,-525 213,-1068 213,-1616 0,-548 -72,-1091 -213,-1616 -140,-525 -350,-1032 -624,-1507 -274,-474 -608,-909 -992,-1293 -384,-384 -819,-718 -1294,-992 -474,-274 -981,-484 -1506,-624 -203,-55 -409,-99 -616,-132 329,-54 663,-81 999,-81 548,0 1091,72 1616,213 525,140 1032,350 1506,624 475,274 910,608 1294,992 384,384 718,819 992,1293 274,475 484,982 624,1507 141,525 213,1068 213,1616 0,548 -72,1091 -213,1616 -140,525 -350,1032 -624,1507 -274,474 -608,909 -992,1293 -384,384 -819,718 -1293,992 -475,274 -982,484 -1507,624 -525,141 -1068,213 -1616,213 -336,0 -670,-27 -1000,-81 208,-33 414,-77 617,-132 525,-140 1032,-350 1507,-624 474,-274 909,-608 1293,-992 384,-384 718,-819 992,-1293 274,-475 484,-982 624,-1507 z"
+   id="path53" />
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+<g
+   style="fill-rule:evenodd;stroke-width:28.222;stroke-linejoin:round"
+   id="g892"
+   transform="matrix(0.10594351,0,0,0.10594351,-277.7482,-857.18903)"><g
+     id="g833">
+  <g
+   id="id2-0"
+   class="Master_Slide">
+   <g
+   id="bg-id2-9"
+   class="Background" />
+   <g
+   id="bo-id2-3"
+   class="BackgroundObjects" />
+  </g>
+ </g><g
+     class="SlideGroup"
+     id="g848">
+  <g
+   id="g846">
+   <g
+   id="container-id1-6">
+    <g
+   id="id1-0"
+   class="Slide"
+   clip-path="url(#presentation_clip_path-3)">
+     <g
+   class="Page"
+   id="g842">
+      <g
+   class="com.sun.star.drawing.ClosedBezierShape"
+   id="g840">
+       <g
+   id="id3-6">
+        <rect
+   class="BoundingBox"
+   stroke="none"
+   fill="none"
+   x="10842"
+   y="8091"
+   width="6088"
+   height="12487"
+   id="rect835" />
+        <path
+   fill="#eeeeee"
+   stroke="none"
+   d="m 10842,8091 c 494,13 983,84 1457,211 525,140 1032,350 1506,624 475,274 910,608 1294,992 384,384 718,819 992,1293 274,475 484,982 624,1507 141,525 213,1068 213,1616 0,548 -72,1091 -213,1616 -140,525 -350,1032 -624,1507 -274,474 -608,909 -992,1293 -384,384 -819,718 -1293,992 -475,274 -982,484 -1507,624 -474,127 -963,198 -1457,211 z"
+   id="path837" />
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g></g><g
+   style="fill-rule:evenodd;stroke-width:28.222;stroke-linejoin:round"
+   id="g1203"
+   transform="matrix(0.10594351,0,0,0.10594351,4154.3378,-857.18903)"><g
+     id="g1144">
+  <g
+   id="id2-2"
+   class="Master_Slide">
+   <g
+   id="bg-id2-8"
+   class="Background" />
+   <g
+   id="bo-id2-9"
+   class="BackgroundObjects" />
+  </g>
+ </g><g
+     class="SlideGroup"
+     id="g1159">
+  <g
+   id="g1157">
+   <g
+   id="container-id1-7">
+    <g
+   id="id1-3"
+   class="Slide"
+   clip-path="url(#presentation_clip_path-2)">
+     <g
+   class="Page"
+   id="g1153">
+      <g
+   class="com.sun.star.drawing.ClosedBezierShape"
+   id="g1151">
+       <g
+   id="id3-61">
+        <rect
+   class="BoundingBox"
+   stroke="none"
+   fill="none"
+   x="10841"
+   y="8091"
+   width="6088"
+   height="12487"
+   id="rect1146" />
+        <path
+   fill="#eeeeee"
+   stroke="none"
+   d="m 16928,8091 c -494,13 -983,84 -1457,211 -525,140 -1032,350 -1506,624 -475,274 -910,608 -1294,992 -384,384 -718,819 -992,1293 -274,475 -484,982 -624,1507 -141,525 -213,1068 -213,1616 0,548 72,1091 213,1616 140,525 350,1032 624,1507 274,474 608,909 992,1293 384,384 819,718 1293,992 475,274 982,484 1507,624 474,127 963,198 1457,211 z"
+   id="path1148" />
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g></g><g
+   style="fill-rule:evenodd;stroke-width:28.222;stroke-linejoin:round"
+   id="g1873"
+   transform="matrix(0.10590959,0,0,0.10590959,1255.1227,-841.87553)"><g
+     id="g1814">
+  <g
+   id="id2-1"
+   class="Master_Slide">
+   <g
+   id="bg-id2-0"
+   class="Background" />
+   <g
+   id="bo-id2-6"
+   class="BackgroundObjects" />
+  </g>
+ </g><g
+     class="SlideGroup"
+     id="g1829">
+  <g
+   id="g1827">
+   <g
+   id="container-id1-3">
+    <g
+   id="id1-2"
+   class="Slide"
+   clip-path="url(#presentation_clip_path-29)">
+     <g
+   class="Page"
+   id="g1823">
+      <g
+   class="com.sun.star.drawing.ClosedBezierShape"
+   id="g1821">
+       <g
+   id="id3-0">
+        <rect
+   class="BoundingBox"
+   stroke="none"
+   fill="none"
+   x="3438"
+   y="7949"
+   width="9681"
+   height="12491"
+   id="rect1816" />
+        <path
+   fill="#dddddd"
+   stroke="none"
+   d="m 6873,20439 c 548,0 1091,-72 1616,-213 525,-140 1032,-350 1507,-624 474,-274 909,-608 1293,-992 384,-384 718,-819 992,-1293 274,-475 484,-982 624,-1507 141,-525 213,-1068 213,-1616 0,-548 -72,-1091 -213,-1616 -140,-525 -350,-1032 -624,-1506 -274,-475 -608,-910 -992,-1294 -384,-384 -819,-718 -1293,-992 -475,-274 -982,-484 -1507,-624 -525,-141 -1068,-213 -1616,-213 -221,0 -441,12 -660,35 -579,538 -1084,1145 -1498,1807 -418,670 -737,1384 -952,2124 -215,740 -325,1506 -325,2279 0,773 110,1539 325,2279 215,740 534,1454 952,2124 414,662 919,1269 1498,1807 219,23 439,35 660,35 z"
+   id="path1818" />
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g></g><g
+   style="fill-rule:evenodd;stroke-width:28.222;stroke-linejoin:round"
+   id="g2340"
+   transform="matrix(0.10681604,0,0,0.10681604,2375.0203,-854.74213)"><g
+     id="g2281">
+  <g
+   id="id2-25"
+   class="Master_Slide">
+   <g
+   id="bg-id2-4"
+   class="Background" />
+   <g
+   id="bo-id2-7"
+   class="BackgroundObjects" />
+  </g>
+ </g><g
+     class="SlideGroup"
+     id="g2296">
+  <g
+   id="g2294">
+   <g
+   id="container-id1-4">
+    <g
+   id="id1-4"
+   class="Slide"
+   clip-path="url(#presentation_clip_path-6)">
+     <g
+   class="Page"
+   id="g2290">
+      <g
+   class="com.sun.star.drawing.ClosedBezierShape"
+   id="g2288">
+       <g
+   id="id3-3">
+        <rect
+   class="BoundingBox"
+   stroke="none"
+   fill="none"
+   x="3491"
+   y="8002"
+   width="12385"
+   height="12385"
+   id="rect2283" />
+        <path
+   fill="#eeeeee"
+   stroke="none"
+   d="m 15875,14194 c 0,1087 -286,2155 -830,3096 -543,941 -1325,1723 -2266,2266 -941,544 -2009,830 -3096,830 -1087,0 -2155,-286 -3096,-830 -941,-543 -1723,-1325 -2266,-2266 -544,-941 -830,-2009 -830,-3096 0,-1087 286,-2155 830,-3096 543,-941 1325,-1723 2266,-2266 941,-544 2009,-830 3096,-830 1087,0 2155,286 3096,830 941,543 1723,1325 2266,2266 544,941 830,2009 830,3096 z"
+   id="path2285" />
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g></g><g
+   style="fill-rule:evenodd;stroke-width:28.222;stroke-linejoin:round"
+   id="g3761"
+   transform="matrix(0.10590959,0,0,0.10590959,3810.0791,-841.87553)"><g
+     id="g3702">
+  <g
+   id="id2-9"
+   class="Master_Slide">
+   <g
+   id="bg-id2-2"
+   class="Background" />
+   <g
+   id="bo-id2-66"
+   class="BackgroundObjects" />
+  </g>
+ </g><g
+     class="SlideGroup"
+     id="g3717">
+  <g
+   id="g3715">
+   <g
+   id="container-id1-49">
+    <g
+   id="id1-5"
+   class="Slide"
+   clip-path="url(#presentation_clip_path-0)">
+     <g
+   class="Page"
+   id="g3711">
+      <g
+   class="com.sun.star.drawing.ClosedBezierShape"
+   id="g3709">
+       <g
+   id="id3-04">
+        <rect
+   class="BoundingBox"
+   stroke="none"
+   fill="none"
+   x="3438"
+   y="7949"
+   width="9681"
+   height="12491"
+   id="rect3704" />
+        <path
+   fill="#dddddd"
+   stroke="none"
+   d="m 9683,20439 c -548,0 -1091,-72 -1616,-213 -525,-140 -1032,-350 -1506,-624 -475,-274 -910,-608 -1294,-992 -384,-384 -718,-819 -992,-1293 -274,-475 -484,-982 -624,-1507 -141,-525 -213,-1068 -213,-1616 0,-548 72,-1091 213,-1616 140,-525 350,-1032 624,-1506 274,-475 608,-910 992,-1294 384,-384 819,-718 1293,-992 475,-274 982,-484 1507,-624 525,-141 1068,-213 1616,-213 221,0 441,12 660,35 579,538 1084,1145 1498,1807 418,670 737,1384 952,2124 215,740 325,1506 325,2279 0,773 -110,1539 -325,2279 -215,740 -534,1454 -952,2124 -414,662 -919,1269 -1498,1807 -219,23 -439,35 -660,35 z"
+   id="path3706" />
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g></g><g
+   style="fill-rule:evenodd;stroke-width:28.222;stroke-linejoin:round"
+   id="g4899"
+   transform="matrix(0.10590959,0,0,0.10590959,5025.9091,-841.87553)"><g
+     id="g4840">
+  <g
+   id="id2-11"
+   class="Master_Slide">
+   <g
+   id="bg-id2-5"
+   class="Background" />
+   <g
+   id="bo-id2-97"
+   class="BackgroundObjects" />
+  </g>
+ </g><g
+     class="SlideGroup"
+     id="g4855">
+  <g
+   id="g4853">
+   <g
+   id="container-id1-76">
+    <g
+   id="id1-7"
+   class="Slide"
+   clip-path="url(#presentation_clip_path-8)">
+     <g
+   class="Page"
+   id="g4849">
+      <g
+   class="com.sun.star.drawing.ClosedBezierShape"
+   id="g4847">
+       <g
+   id="id3-36">
+        <rect
+   class="BoundingBox"
+   stroke="none"
+   fill="none"
+   x="9681"
+   y="7949"
+   width="7247"
+   height="12491"
+   id="rect4842" />
+        <path
+   fill="#eeeeee"
+   stroke="none"
+   d="m 11894,15810 c -141,-525 -213,-1068 -213,-1616 0,-548 72,-1091 213,-1616 140,-525 350,-1032 624,-1507 274,-474 608,-909 992,-1293 384,-384 819,-718 1294,-992 474,-274 981,-484 1506,-624 203,-55 409,-99 617,-132 -330,-54 -664,-81 -1000,-81 -548,0 -1091,72 -1616,213 -525,140 -1032,350 -1506,624 -475,274 -910,608 -1294,992 -384,384 -718,819 -992,1293 -274,475 -484,982 -624,1507 -141,525 -213,1068 -213,1616 0,548 72,1091 213,1616 140,525 350,1032 624,1507 274,474 608,909 992,1293 384,384 819,718 1293,992 475,274 982,484 1507,624 525,141 1068,213 1616,213 336,0 670,-27 1000,-81 -208,-33 -414,-77 -617,-132 -525,-140 -1032,-350 -1507,-624 -474,-274 -909,-608 -1293,-992 -384,-384 -718,-819 -992,-1293 -274,-475 -484,-982 -624,-1507 z"
+   id="path4844" />
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g></g></svg>

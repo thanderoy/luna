@@ -1,6 +1,92 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-  <!-- New Moon/Luna Nueva -->
-  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-  <circle cx="12" cy="12" r="9" fill="currentColor"/>
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.2"
+   width="13.22917mm"
+   height="13.22917mm"
+   viewBox="0 0 1322.917 1322.917"
+   preserveAspectRatio="xMidYMid"
+   fill-rule="evenodd"
+   stroke-width="28.222"
+   stroke-linejoin="round"
+   xml:space="preserve"
+   id="svg66"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+ <defs
+   class="ClipPathGroup"
+   id="defs8"><clipPath
+     id="presentation_clip_path-5"
+     clipPathUnits="userSpaceOnUse">
+   <rect
+   x="0"
+   y="0"
+   width="21000"
+   height="29700"
+   id="rect6696" />
+  </clipPath></defs>
+ <defs
+   class="TextShapeIndex"
+   id="defs12" />
+ <defs
+   class="EmbeddedBulletChars"
+   id="defs44" />
+ 
+ 
+<g
+   style="fill-rule:evenodd;stroke-width:28.222;stroke-linejoin:round"
+   id="g6802"
+   transform="matrix(0.10590959,0,0,0.10590959,-364.11741,-841.87464)"><g
+     id="g6743">
+  <g
+   id="id2-96"
+   class="Master_Slide">
+   <g
+   id="bg-id2-3"
+   class="Background" />
+   <g
+   id="bo-id2-8"
+   class="BackgroundObjects" />
+  </g>
+ </g><g
+     class="SlideGroup"
+     id="g6758">
+  <g
+   id="g6756">
+   <g
+   id="container-id1-5">
+    <g
+   id="id1-6"
+   class="Slide"
+   clip-path="url(#presentation_clip_path-5)">
+     <g
+   class="Page"
+   id="g6752">
+      <g
+   class="com.sun.star.drawing.ClosedBezierShape"
+   id="g6750">
+       <g
+   id="id3-1">
+        <rect
+   class="BoundingBox"
+   stroke="none"
+   fill="none"
+   x="3438"
+   y="7949"
+   width="12491"
+   height="12491"
+   id="rect6745" />
+        <path
+   fill="none"
+   stroke="#eeeeee"
+   stroke-width="106"
+   stroke-linejoin="round"
+   stroke-linecap="round"
+   d="m 15875,14194 c 0,1087 -286,2155 -830,3096 -543,941 -1325,1723 -2266,2266 -941,544 -2009,830 -3096,830 -1087,0 -2155,-286 -3096,-830 -941,-543 -1723,-1325 -2266,-2266 -544,-941 -830,-2009 -830,-3096 0,-1087 286,-2155 830,-3096 543,-941 1325,-1723 2266,-2266 941,-544 2009,-830 3096,-830 1087,0 2155,286 3096,830 941,543 1723,1325 2266,2266 544,941 830,2009 830,3096 z"
+   id="path6747" />
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g></g></svg>

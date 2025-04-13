@@ -21,16 +21,14 @@ import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import St from 'gi://St';
 
-import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
-import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+const UPDATE_INTERVAL_SECONDS = 3600; // Update every hour
 
-const UPDATE_INTERVAL_SECONDS = 3600;
-const ICON_SIZE = 16;
-
-// Could be useful for future translations
+// Moon phase constants
 const MOON_PHASES = Object.freeze({
     NEW_MOON: 'New Moon',
     WAXING_CRESCENT: 'Waxing Crescent',
@@ -42,142 +40,193 @@ const MOON_PHASES = Object.freeze({
     WANING_CRESCENT: 'Waning Crescent'
 });
 
+// Map phase names to icon filenames
+const PHASE_ICONS = Object.freeze({
+    [MOON_PHASES.NEW_MOON]: 'luna_nueva',
+    [MOON_PHASES.WAXING_CRESCENT]: 'luna_creciente',
+    [MOON_PHASES.FIRST_QUARTER]: 'luna_cuarto_creciente',
+    [MOON_PHASES.WAXING_GIBBOUS]: 'luna_gibosa_creciente',
+    [MOON_PHASES.FULL_MOON]: 'luna_llena',
+    [MOON_PHASES.WANING_GIBBOUS]: 'luna_gibosa_menguante',
+    [MOON_PHASES.LAST_QUARTER]: 'luna_cuarto_menguante',
+    [MOON_PHASES.WANING_CRESCENT]: 'luna_menguante'
+});
+
+// Convert phase names to array for indexing
+const PHASE_NAMES = Object.values(MOON_PHASES);
+
 const MoonPhaseIndicator = GObject.registerClass(
 class MoonPhaseIndicator extends PanelMenu.Button {
-    _init() {
-        super._init(0.0, _('Moon Phase Indicator'));
+    _init(extension) {
+        super._init(0.0, 'Moon Phase Indicator');
 
+        this._extension = extension;
+
+        // Create icon with fallback
         this.moon_phase_icon = new St.Icon({
-            icon_name: 'face-smile-symbolic',
+            icon_name: 'weather-clear-night-symbolic', // Fallback icon
             style_class: 'system-status-icon',
-            icon_size: ICON_SIZE,
-        })
+        });
         this.add_child(this.moon_phase_icon);
 
-        // Create popup menu
+        // Build the popup menu
         this._buildMenu();
 
-        // Update moon phase every hour
+        // Update moon phase immediately and set up timer
         this._updateMoonPhase();
-        this._timer = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, UPDATE_INTERVAL_SECONDS, () => {
-            this._updateMoonPhase();
-            return GLib.SOURCE_CONTINUE;
-        });
+        this._startTimer();
+    }
+
+    _startTimer() {
+        // Clear any existing timer first
+        this._stopTimer();
+
+        // Set up a new timer
+        this._timerId = GLib.timeout_add_seconds(
+            GLib.PRIORITY_DEFAULT,
+            UPDATE_INTERVAL_SECONDS,
+            () => {
+                this._updateMoonPhase();
+                return GLib.SOURCE_CONTINUE;
+            }
+        );
+    }
+
+    _stopTimer() {
+        if (this._timerId) {
+            GLib.source_remove(this._timerId);
+            this._timerId = null;
+        }
     }
 
     _buildMenu() {
         // Current phase label
         this._phaseLabel = new PopupMenu.PopupMenuItem('', {
-            reactive: false
+            reactive: false,
+            can_focus: false
         });
         this.menu.addMenuItem(this._phaseLabel);
 
         // Next phase info
         this._nextPhaseLabel = new PopupMenu.PopupMenuItem('', {
-            reactive: false
+            reactive: false,
+            can_focus: false
         });
         this.menu.addMenuItem(this._nextPhaseLabel);
 
+        // Add percentage info
+        this._percentageLabel = new PopupMenu.PopupMenuItem('', {
+            reactive: false,
+            can_focus: false
+        });
+        this.menu.addMenuItem(this._percentageLabel);
+
         // Separator
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+
+        // Add refresh button
+        const refreshItem = new PopupMenu.PopupMenuItem('Refresh');
+        refreshItem.connect('activate', () => {
+            this._updateMoonPhase();
+        });
+        this.menu.addMenuItem(refreshItem);
     }
 
     _updateMoonPhase() {
         try {
-            const { phase, phaseName } = this._calculateMoonPhase();
-            const iconName = this._getIconNameForPhase(phase);
+            // Calculate current moon phase
+            const { phase, phaseName, illumination } = this._calculateMoonPhase();
 
-            // Update icon
-            const iconPath = `${this.path}/icons/${iconName}.svg`;
+            // Get icon path for the current phase
+            const iconName = PHASE_ICONS[phaseName];
+            const iconPath = `${this._extension.path}/icons/${iconName}.svg`;
 
-            if (!GLib.file_test(iconPath, GLib.FileTest.EXISTS)) {
-                throw new Error(`Icon not found: ${iconPath}`);
+            // Check if icon exists
+            if (GLib.file_test(iconPath, GLib.FileTest.EXISTS)) {
+                this.moon_phase_icon.gicon = Gio.icon_new_for_string(iconPath);
+            } else {
+                // Fallback to symbolic icon
+                console.warn(`Moon phase icon not found: ${iconPath}`);
+                this.moon_phase_icon.icon_name = 'weather-clear-night-symbolic';
             }
-
-            this.moon_phase_icon.gicon = Gio.icon_new_for_string(iconPath);
 
             // Update menu labels
             this._phaseLabel.label.text = `Current Phase: ${phaseName}`;
-            const nextPhase = this._getNextPhaseName(phase);
-            this._nextPhaseLabel.label.text = `Next Phase: ${nextPhase}`;
+
+            // Get next phase
+            const nextPhaseIndex = (PHASE_NAMES.indexOf(phaseName) + 1) % PHASE_NAMES.length;
+            const nextPhaseName = PHASE_NAMES[nextPhaseIndex];
+            this._nextPhaseLabel.label.text = `Next Phase: ${nextPhaseName}`;
+
+            // Update illumination percentage
+            this._percentageLabel.label.text = `Illumination: ${Math.round(illumination * 100)}%`;
 
             return true;
         } catch (error) {
-            logError(error);
+            console.error(`Error updating moon phase: ${error.message}`);
+
             // Set fallback text in case of error
             this._phaseLabel.label.text = 'Error: Could not determine moon phase';
             this._nextPhaseLabel.label.text = '';
-            return GLib.SOURCE_CONTINUE;
-;
+            this._percentageLabel.label.text = '';
+
+            // Use fallback icon
+            this.moon_phase_icon.icon_name = 'weather-severe-alert-symbolic';
+
+            return true;
         }
     }
 
     _calculateMoonPhase() {
+        // Get current date
         const now = new Date();
-        const year = now.getFullYear();
-        const month = now.getMonth() + 1;
-        const day = now.getDate();
 
-        // Calculating moon phase using Conway's algorithm
-        let r = year % 100;
-        r %= 19;
-        if (r > 9) r -= 19;
-        r = ((r * 11) % 30) + month + day;
-        if (month < 3) r += 2;
-        r -= ((year < 2000) ? 4 : 8.3);
-        r = Math.floor(r + 0.5) % 30;
+        // Calculate days since January 1, 2000 (a known new moon)
+        const KNOWN_NEW_MOON = new Date(2000, 0, 6, 18, 14); // Jan 6, 2000, 18:14 UTC
+        const LUNAR_CYCLE = 29.53058867; // Length of lunar month in days
 
-        // Convert 30 day cycle to 8 phases
-        const phase = Math.floor((r / 30) * 8);
-        const phaseName = this._getPhaseNameForIndex(phase);
+        // Calculate time difference in milliseconds and convert to days
+        const diffMillis = now - KNOWN_NEW_MOON;
+        const diffDays = diffMillis / (1000 * 60 * 60 * 24);
 
-        return { phase, phaseName };
-    }
+        // Calculate the phase as a fraction [0,1]
+        const phase = (diffDays % LUNAR_CYCLE) / LUNAR_CYCLE;
 
-    _getPhaseNameForIndex(phase) {
-        const phases = [
-            'New Moon',            // luna_nueva
-            'Waxing Crescent',     // luna_creciente
-            'First Quarter',       // luna_cuarto_creciente
-            'Waxing Gibbous',      // luna_gibosa_creciente
-            'Full Moon',           // luna_llena
-            'Waning Gibbous',      // luna_gibosa_menguante
-            'Last Quarter',        // luna_cuarto_menguante
-            'Waning Crescent'      // luna_menguante
-        ];
-        return phases[phase];
-    }
+        // Calculate illumination (0 = new, 0.5 = quarter, 1 = full)
+        const illumination = (1 - Math.cos(phase * 2 * Math.PI)) / 2;
 
-    _getNextPhaseName(currentPhase) {
-        const nextPhase = (currentPhase + 1) % 8;
-        return this._getPhaseNameForIndex(nextPhase);
-    }
+        // Determine phase name based on the phase value
+        let phaseName;
+        if (phase < 0.0625 || phase >= 0.9375) {
+            phaseName = MOON_PHASES.NEW_MOON;
+        } else if (phase < 0.1875) {
+            phaseName = MOON_PHASES.WAXING_CRESCENT;
+        } else if (phase < 0.3125) {
+            phaseName = MOON_PHASES.FIRST_QUARTER;
+        } else if (phase < 0.4375) {
+            phaseName = MOON_PHASES.WAXING_GIBBOUS;
+        } else if (phase < 0.5625) {
+            phaseName = MOON_PHASES.FULL_MOON;
+        } else if (phase < 0.6875) {
+            phaseName = MOON_PHASES.WANING_GIBBOUS;
+        } else if (phase < 0.8125) {
+            phaseName = MOON_PHASES.LAST_QUARTER;
+        } else {
+            phaseName = MOON_PHASES.WANING_CRESCENT;
+        }
 
-    _getIconNameForPhase(phase) {
-        const icons = [
-            'luna_nueva',           // New Moon
-            'luna_creciente',       // Waxing Crescent
-            'luna_cuarto_creciente', // First Quarter
-            'luna_gibosa_creciente', // Waxing Gibbous
-            'luna_llena',           // Full Moon
-            'luna_gibosa_menguante', // Waning Gibbous
-            'luna_cuarto_menguante', // Last Quarter
-            'luna_menguante'        // Waning Crescent
-        ];
-        return icons[phase];
+        return { phase, phaseName, illumination };
     }
 
     destroy() {
-        if (this._timer && GLib.Source.remove(this._timer)) {
-            this._timer = null;
-        }
+        this._stopTimer();
         super.destroy();
     }
 });
 
 export default class MoonPhaseIndicatorExtension extends Extension {
     enable() {
-        this._indicator = new MoonPhaseIndicator();
+        this._indicator = new MoonPhaseIndicator(this);
         Main.panel.addToStatusArea(this.uuid, this._indicator);
     }
 
