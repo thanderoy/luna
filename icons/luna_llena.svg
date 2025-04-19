@@ -1,89 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
-   version="1.2"
-   width="13.229165mm"
-   height="13.22917mm"
-   viewBox="0 0 1322.9165 1322.917"
-   preserveAspectRatio="xMidYMid"
-   fill-rule="evenodd"
-   stroke-width="28.222"
-   stroke-linejoin="round"
-   xml:space="preserve"
-   id="svg66"
+   width="13.229164mm"
+   height="13.229164mm"
+   viewBox="0 0 13.229164 13.229164"
+   version="1.1"
+   id="svg5"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
- <defs
-   class="ClipPathGroup"
-   id="defs8"><clipPath
-     id="presentation_clip_path-6"
-     clipPathUnits="userSpaceOnUse">
-   <rect
-   x="0"
-   y="0"
-   width="21000"
-   height="29700"
-   id="rect2234" />
-  </clipPath></defs>
- <defs
-   class="TextShapeIndex"
-   id="defs12" />
- <defs
-   class="EmbeddedBulletChars"
-   id="defs44" />
- 
- 
-<g
-   style="fill-rule:evenodd;stroke-width:28.222;stroke-linejoin:round"
-   id="g2340"
-   transform="matrix(0.10681604,0,0,0.10681604,-372.89464,-854.74173)"><g
-     id="g2281">
+  <defs
+     id="defs2" />
   <g
-   id="id2-25"
-   class="Master_Slide">
-   <g
-   id="bg-id2-4"
-   class="Background" />
-   <g
-   id="bo-id2-7"
-   class="BackgroundObjects" />
+     id="layer1"
+     transform="translate(-88.979036,-111.07316)">
+    <circle
+       style="font-variation-settings:normal;opacity:1;fill:#ececec;fill-opacity:1;fill-rule:evenodd;stroke:#ececec;stroke-width:0.965919;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+       id="path234"
+       cx="95.593613"
+       cy="117.68774"
+       r="6.1316237" />
   </g>
- </g><g
-     class="SlideGroup"
-     id="g2296">
-  <g
-   id="g2294">
-   <g
-   id="container-id1-4">
-    <g
-   id="id1-4"
-   class="Slide"
-   clip-path="url(#presentation_clip_path-6)">
-     <g
-   class="Page"
-   id="g2290">
-      <g
-   class="com.sun.star.drawing.ClosedBezierShape"
-   id="g2288">
-       <g
-   id="id3-3">
-        <rect
-   class="BoundingBox"
-   stroke="none"
-   fill="none"
-   x="3491"
-   y="8002"
-   width="12385"
-   height="12385"
-   id="rect2283" />
-        <path
-   fill="#eeeeee"
-   stroke="none"
-   d="m 15875,14194 c 0,1087 -286,2155 -830,3096 -543,941 -1325,1723 -2266,2266 -941,544 -2009,830 -3096,830 -1087,0 -2155,-286 -3096,-830 -941,-543 -1723,-1325 -2266,-2266 -544,-941 -830,-2009 -830,-3096 0,-1087 286,-2155 830,-3096 543,-941 1325,-1723 2266,-2266 941,-544 2009,-830 3096,-830 1087,0 2155,286 3096,830 941,543 1723,1325 2266,2266 544,941 830,2009 830,3096 z"
-   id="path2285" />
-       </g>
-      </g>
-     </g>
-    </g>
-   </g>
-  </g>
- </g></g></svg>
+</svg>
