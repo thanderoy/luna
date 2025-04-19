@@ -1,89 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
-   version="1.2"
-   width="10.253106mm"
-   height="13.229165mm"
-   viewBox="0 0 1025.3106 1322.9165"
-   preserveAspectRatio="xMidYMid"
-   fill-rule="evenodd"
-   stroke-width="28.222"
-   stroke-linejoin="round"
-   xml:space="preserve"
-   id="svg66"
+   width="50.000008mm"
+   height="50.000008mm"
+   viewBox="0 0 50.000008 50.000008"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="luna_gibosa_creciente.svg"
+   inkscape:export-xdpi="26.518112"
+   inkscape:export-ydpi="26.518112"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
- <defs
-   class="ClipPathGroup"
-   id="defs8"><clipPath
-     id="presentation_clip_path-0"
-     clipPathUnits="userSpaceOnUse">
-   <rect
-   x="0"
-   y="0"
-   width="21000"
-   height="29700"
-   id="rect3655" />
-  </clipPath></defs>
- <defs
-   class="TextShapeIndex"
-   id="defs12" />
- <defs
-   class="EmbeddedBulletChars"
-   id="defs44" />
- 
- 
-<g
-   style="fill-rule:evenodd;stroke-width:28.222;stroke-linejoin:round"
-   id="g3761"
-   transform="matrix(0.10590959,0,0,0.10590959,-364.11667,-841.87506)"><g
-     id="g3702">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false" />
+  <defs
+     id="defs2" />
   <g
-   id="id2-9"
-   class="Master_Slide">
-   <g
-   id="bg-id2-2"
-   class="Background" />
-   <g
-   id="bo-id2-66"
-   class="BackgroundObjects" />
-  </g>
- </g><g
-     class="SlideGroup"
-     id="g3717">
-  <g
-   id="g3715">
-   <g
-   id="container-id1-49">
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-47.438729,-72.866659)">
     <g
-   id="id1-5"
-   class="Slide"
-   clip-path="url(#presentation_clip_path-0)">
-     <g
-   class="Page"
-   id="g3711">
-      <g
-   class="com.sun.star.drawing.ClosedBezierShape"
-   id="g3709">
-       <g
-   id="id3-04">
-        <rect
-   class="BoundingBox"
-   stroke="none"
-   fill="none"
-   x="3438"
-   y="7949"
-   width="9681"
-   height="12491"
-   id="rect3704" />
-        <path
-   fill="#dddddd"
-   stroke="none"
-   d="m 9683,20439 c -548,0 -1091,-72 -1616,-213 -525,-140 -1032,-350 -1506,-624 -475,-274 -910,-608 -1294,-992 -384,-384 -718,-819 -992,-1293 -274,-475 -484,-982 -624,-1507 -141,-525 -213,-1068 -213,-1616 0,-548 72,-1091 213,-1616 140,-525 350,-1032 624,-1506 274,-475 608,-910 992,-1294 384,-384 819,-718 1293,-992 475,-274 982,-484 1507,-624 525,-141 1068,-213 1616,-213 221,0 441,12 660,35 579,538 1084,1145 1498,1807 418,670 737,1384 952,2124 215,740 325,1506 325,2279 0,773 -110,1539 -325,2279 -215,740 -534,1454 -952,2124 -414,662 -919,1269 -1498,1807 -219,23 -439,35 -660,35 z"
-   id="path3706" />
-       </g>
-      </g>
-     </g>
+       id="g1281"
+       transform="matrix(-1,0,0,1,144.87747,0)">
+      <path
+         id="path234"
+         style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#f2f2f2;fill-opacity:1;fill-rule:evenodd;stroke-width:7.15699;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+         d="M 75.99924,74.69417 A 25,25 0 0 0 60.427064,97.837456 25,25 0 0 0 76.132048,121.03915 23.648335,23.648333 0 0 0 95.033737,97.886036 23.648335,23.648333 0 0 0 75.99924,74.69417 Z" />
+      <ellipse
+         style="font-variation-settings:normal;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#f2f2f2;stroke-width:2.70334;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
+         id="path234-3"
+         cx="72.438736"
+         cy="97.866661"
+         rx="23.648335"
+         ry="23.648333" />
     </g>
-   </g>
   </g>
- </g></g></svg>
+</svg>

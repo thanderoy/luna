@@ -27,6 +27,7 @@ import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
 const UPDATE_INTERVAL_SECONDS = 3600; // Update every hour
+const ICON_SIZE = 16; // Icon size in pixels
 
 // Moon phase constants
 const MOON_PHASES = Object.freeze({
@@ -66,6 +67,7 @@ class MoonPhaseIndicator extends PanelMenu.Button {
         this.moon_phase_icon = new St.Icon({
             icon_name: 'weather-clear-night-symbolic', // Fallback icon
             style_class: 'system-status-icon',
+            icon_size: ICON_SIZE,
         });
         this.add_child(this.moon_phase_icon);
 
@@ -133,56 +135,42 @@ class MoonPhaseIndicator extends PanelMenu.Button {
     }
 
     _updateMoonPhase() {
-        try {
-            // Calculate current moon phase
-            const { phase, phaseName, illumination } = this._calculateMoonPhase();
+        // Calculate current moon phase
+        const { phase, phaseName, illumination } = this._calculateMoonPhase();
 
-            // Get icon path for the current phase
-            const iconName = PHASE_ICONS[phaseName];
-            const iconPath = `${this._extension.path}/icons/${iconName}.svg`;
+        // Get icon path for the current phase
+        const iconName = PHASE_ICONS[phaseName];
+        const iconPath = `${this._extension.path}/icons/${iconName}.svg`;
 
-            // Check if icon exists
-            if (GLib.file_test(iconPath, GLib.FileTest.EXISTS)) {
-                this.moon_phase_icon.gicon = Gio.icon_new_for_string(iconPath);
-            } else {
-                // Fallback to symbolic icon
-                console.warn(`Moon phase icon not found: ${iconPath}`);
-                this.moon_phase_icon.icon_name = 'weather-clear-night-symbolic';
-            }
-
-            // Update menu labels
-            this._phaseLabel.label.text = `Current Phase: ${phaseName}`;
-
-            // Get next phase
-            const nextPhaseIndex = (PHASE_NAMES.indexOf(phaseName) + 1) % PHASE_NAMES.length;
-            const nextPhaseName = PHASE_NAMES[nextPhaseIndex];
-            this._nextPhaseLabel.label.text = `Next Phase: ${nextPhaseName}`;
-
-            // Update illumination percentage
-            this._percentageLabel.label.text = `Illumination: ${Math.round(illumination * 100)}%`;
-
-            return true;
-        } catch (error) {
-            console.error(`Error updating moon phase: ${error.message}`);
-
-            // Set fallback text in case of error
-            this._phaseLabel.label.text = 'Error: Could not determine moon phase';
-            this._nextPhaseLabel.label.text = '';
-            this._percentageLabel.label.text = '';
-
-            // Use fallback icon
-            this.moon_phase_icon.icon_name = 'weather-severe-alert-symbolic';
-
-            return true;
+        // Check if icon exists
+        if (GLib.file_test(iconPath, GLib.FileTest.EXISTS)) {
+            this.moon_phase_icon.gicon = Gio.icon_new_for_string(iconPath);
+        } else {
+            // Fallback to symbolic icon
+            console.warn(`Moon phase icon not found: ${iconPath}`);
+            this.moon_phase_icon.icon_name = 'weather-clear-night-symbolic';
         }
+
+        // Update menu labels
+        this._phaseLabel.label.text = `Current Phase: ${phaseName}`;
+
+        // Get next phase
+        const nextPhaseIndex = (PHASE_NAMES.indexOf(phaseName) + 1) % PHASE_NAMES.length;
+        const nextPhaseName = PHASE_NAMES[nextPhaseIndex];
+        this._nextPhaseLabel.label.text = `Next Phase: ${nextPhaseName}`;
+
+        // Update illumination percentage
+        this._percentageLabel.label.text = `Illumination: ${Math.round(illumination * 100)}%`;
+
+        return true;
     }
 
     _calculateMoonPhase() {
         // Get current date
         const now = new Date();
 
-        // Calculate days since January 1, 2000 (a known new moon)
-        const KNOWN_NEW_MOON = new Date(2000, 0, 6, 18, 14); // Jan 6, 2000, 18:14 UTC
+        // Calculate days since March 29, 2025 (a known new moon)
+        const KNOWN_NEW_MOON = new Date(2025, 3, 29, 13, 57); // March 29, 2025, 13:57 EAT
         const LUNAR_CYCLE = 29.53058867; // Length of lunar month in days
 
         // Calculate time difference in milliseconds and convert to days
