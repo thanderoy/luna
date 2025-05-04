@@ -1,0 +1,60 @@
+.moon-phase-menu {
+    padding: 8px;
+}
+
+/* Header styles */
+.header-label {
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+    width: 100%;
+}
+
+.phase-label {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+.illumination-label {
+    font-size: 12px;
+    color: #ccc;
+    text-align: center;
+    width: 100%;
+}
+
+/* Information rows */
+.info-box {
+    margin-top: 4px;
+}
+
+.info-label {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.info-value {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Separator */
+.separator {
+    height: 1px;
+    background-color: rgba(255 255 255 / 50%);
+    margin: 8px 0;
+}
+
+/* Refresh button */
+.refresh-button {
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: rgba(255 255 255 / 10%);
+    color: #fff;
+}
+
+.refresh-button:hover {
+    background-color: rgba(255 255 255 / 20%);
+}

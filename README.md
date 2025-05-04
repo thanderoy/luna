@@ -12,6 +12,8 @@ Luna is a simple GNOME Shell extension that displays the current moon phase dire
   - Current phase name
   - Next phase
   - Illumination percentage
+  - Distance (Meridian)
+  - Age of the moon phase
 - Refresh button for manual updates
 - Updates automatically every hour
 - Lightweight and unobtrusive
