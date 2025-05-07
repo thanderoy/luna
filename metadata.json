@@ -1,7 +1,7 @@
 {
   "name": "Luna - Moon Phase Indicator",
   "description": "Displays current moon phase, and illumination.",
-  "shell-version": ["46"],
+  "shell-version": ["46", "48"],
   "original-author": "roy.thande@gmail.com",
   "url": "https://github.com/thanderoy/luna",
   "uuid": "luna@thanderoy.github.io",
