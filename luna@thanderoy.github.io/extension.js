@@ -16,14 +16,14 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
+import St from 'gi://St';
+
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-import { MoonPhaseIndicator } from './moonPhaseIndicator.js';
+import { MoonPhaseIndicator } from './utils/moonPhaseIndicator.js';
 
 export default class MoonPhaseIndicatorExtension extends Extension {
     enable() {
-        this._loadStylesheet();
-
         this._indicator = new MoonPhaseIndicator(this);
         Main.panel.addToStatusArea(this.uuid, this._indicator);
     }
@@ -33,17 +33,5 @@ export default class MoonPhaseIndicatorExtension extends Extension {
             this._indicator.destroy();
             this._indicator = null;
         }
-
-        this._unloadStylesheet();
-    }
-
-    _loadStylesheet() {
-        const styleProvider = new St.ThemeContext().get_theme();
-        styleProvider.load_stylesheet(this.path + '/stylesheet.css');
-    }
-
-    _unloadStylesheet() {
-        const styleProvider = new St.ThemeContext().get_theme();
-        styleProvider.unload_stylesheet(this.path + '/stylesheet.css');
     }
 }
