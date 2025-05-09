@@ -24,11 +24,11 @@ Luna is a simple GNOME Shell extension that displays the current moon phase dire
 
 > On top bar
 
-![alt text](icons/image.png)
+![alt text](src/images/image.png)
 
 > Next phase, illumination %
 
-![alt text](<icons/Screenshot from 2025-04-21 21-34-31.png>)
+![alt text](<src/images/Screenshot from 2025-04-21 21-34-31.png>)
 
 ---
 
