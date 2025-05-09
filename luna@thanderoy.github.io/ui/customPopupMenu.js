@@ -6,6 +6,7 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 export const CustomPopupMenu = GObject.registerClass(
 class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
     _init() {
+
         super._init({
             reactive: false,
             can_focus: false,
