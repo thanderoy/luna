@@ -4,6 +4,7 @@
   "shell-version": ["46", "47", "48"],
   "original-author": "roy.thande@gmail.com",
   "url": "https://github.com/thanderoy/luna",
+  "gettext-domain": "luna@thanderoy.github.io",
   "uuid": "luna@thanderoy.github.io",
   "version": 4,
   "donations": {"buymeacoffee": "thanderoy"}

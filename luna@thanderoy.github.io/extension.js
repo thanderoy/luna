@@ -23,8 +23,13 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import { MoonPhaseIndicator } from './utils/moonPhaseIndicator.js';
 
 export default class MoonPhaseIndicatorExtension extends Extension {
+    constructor(metadata) {
+        super(metadata);
+        this.initTranslations();
+    }
+
     enable() {
-        this._indicator = new MoonPhaseIndicator(this);
+        this._indicator = new MoonPhaseIndicator(this, this.gettext);
         Main.panel.addToStatusArea(this.uuid, this._indicator);
     }
 

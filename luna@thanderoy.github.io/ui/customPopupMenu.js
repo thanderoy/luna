@@ -5,8 +5,8 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
 export const CustomPopupMenu = GObject.registerClass(
 class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
-    _init() {
-
+    _init(gettext) {
+        this._ = gettext;
         super._init({
             reactive: false,
             can_focus: false,
@@ -23,7 +23,7 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
 
         // Current Phase Label
         this.headerLabel = new St.Label({
-            text: 'CURRENT PHASE:',
+            text: this._('CURRENT PHASE:'),
             style_class: 'header-label',
             x_align: Clutter.ActorAlign.CENTER
         });
@@ -53,7 +53,7 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
         this.container.add_child(this.nextPhaseBox);
 
         this.nextPhaseLabel = new St.Label({
-            text: 'NEXT PHASE:',
+            text: this._('NEXT PHASE:'),
             style_class: 'next-phase-label info-label',
             x_expand: true,
             y_align: Clutter.ActorAlign.CENTER
@@ -82,7 +82,7 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
         this.container.add_child(this.distanceBox);
 
         this.distanceLabel = new St.Label({
-            text: 'DISTANCE:',
+            text: this._('DISTANCE:'),
             style_class: 'distance-label info-label',
             x_expand: true,
             y_align: Clutter.ActorAlign.CENTER
@@ -105,7 +105,7 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
         this.container.add_child(this.ageBox);
 
         this.ageLabel = new St.Label({
-            text: 'AGE:',
+            text: this._('AGE:'),
             style_class: 'age-label info-label',
             x_expand: true,
             y_align: Clutter.ActorAlign.CENTER
@@ -131,10 +131,10 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
         if (!data) return;
 
         if (data.phaseName) this.phaseLabel.text = data.phaseName;
-        if (data.illumination) this.illuminationLabel.text = `(Illumination: ${data.illumination}%)`;
+        if (Object.prototype.hasOwnProperty.call(data, 'illumination')) this.illuminationLabel.text = this._('(Illumination: {value}%)').replace('{value}', data.illumination);
         if (data.nextPhase) this.nextPhaseValue.text = data.nextPhase;
-        if (data.distance) this.distanceValue.text = `${data.distance} km`;
-        if (data.age) this.ageValue.text = `${data.age} Days`;
+        if (Object.prototype.hasOwnProperty.call(data, 'distance')) this.distanceValue.text = this._('{value} km').replace('{value}', data.distance);
+        if (Object.prototype.hasOwnProperty.call(data, 'age')) this.ageValue.text = this._('{value} Days').replace('{value}', data.age);
     }
 
     setPhase(phaseName) {

@@ -1,0 +1,94 @@
+# Luna Moon Phase Indicator translations.
+# Copyright (C) 2024 Thande Roy
+# This file is distributed under the same license as the Luna Moon Phase Indicator package.
+# Thande Roy <roy.thande@gmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: luna@thanderoy.github.io\n"
+"Report-Msgid-Bugs-To: https://github.com/thanderoy/luna/issues\n"
+"POT-Creation-Date: 2024-03-17 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: ../metadata.json
+msgid "Luna - Moon Phase Indicator"
+msgstr ""
+
+#: ../metadata.json
+msgid "Displays current moon phase, and illumination."
+msgstr ""
+
+#: utils/moonPhaseIndicator.js
+msgid "Moon Phase Indicator"
+msgstr ""
+
+#: utils/moonPhaseIndicator.js
+msgid "New Moon"
+msgstr ""
+
+#: utils/moonPhaseIndicator.js
+msgid "Waxing Crescent"
+msgstr ""
+
+#: utils/moonPhaseIndicator.js
+msgid "First Quarter"
+msgstr ""
+
+#: utils/moonPhaseIndicator.js
+msgid "Waxing Gibbous"
+msgstr ""
+
+#: utils/moonPhaseIndicator.js
+msgid "Full Moon"
+msgstr ""
+
+#: utils/moonPhaseIndicator.js
+msgid "Waning Gibbous"
+msgstr ""
+
+#: utils/moonPhaseIndicator.js
+msgid "Last Quarter"
+msgstr ""
+
+#: utils/moonPhaseIndicator.js
+msgid "Waning Crescent"
+msgstr ""
+
+#: ui/customPopupMenu.js
+msgid "CURRENT PHASE:"
+msgstr ""
+
+#: ui/customPopupMenu.js
+msgid "(Illumination: {value}%)"
+msgstr ""
+
+#: ui/customPopupMenu.js
+msgid "NEXT PHASE:"
+msgstr ""
+
+#: ui/customPopupMenu.js
+msgid "DISTANCE:"
+msgstr ""
+
+#: ui/customPopupMenu.js
+msgid "{value} km"
+msgstr ""
+
+#: ui/customPopupMenu.js
+msgid "AGE:"
+msgstr ""
+
+#: ui/customPopupMenu.js
+msgid "{value} Days"
+msgstr ""
+
+#: ui/refreshButton.js
+msgid "Refresh"
+msgstr ""

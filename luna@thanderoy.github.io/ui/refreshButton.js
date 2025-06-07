@@ -5,7 +5,8 @@ import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
 export const RefreshButton = GObject.registerClass(
     class RefreshButton extends PopupMenu.PopupBaseMenuItem {
-        _init(callback) {
+        _init(gettext, callback) {
+            this._ = gettext;
             super._init({
                 style_class: 'refresh-button-item',
                 reactive: false,
@@ -20,7 +21,7 @@ export const RefreshButton = GObject.registerClass(
             this.add_child(buttonBox);
 
             this.button = new St.Button({
-                label: 'Refresh',
+                label: this._('Refresh'),
                 style_class: 'refresh-button',
                 x_align: Clutter.ActorAlign.CENTER,
                 reactive: true,

@@ -1,0 +1,94 @@
+# Luna Moon Phase Indicator translations for English.
+# Copyright (C) 2024 Thande Roy
+# This file is distributed under the same license as the Luna Moon Phase Indicator package.
+# Thande Roy <roy.thande@gmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: luna@thanderoy.github.io\n"
+"Report-Msgid-Bugs-To: https://github.com/thanderoy/luna/issues\n"
+"POT-Creation-Date: 2024-03-17 12:00+0000\n"
+"PO-Revision-Date: 2025-05-30 18:38+UTC\n"
+"Last-Translator: Thande Roy <roy.thande@gmail.com>\n"
+"Language-Team: English <en@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../metadata.json
+msgid "Luna - Moon Phase Indicator"
+msgstr "Luna - Moon Phase Indicator"
+
+#: ../metadata.json
+msgid "Displays current moon phase, and illumination."
+msgstr "Displays current moon phase, and illumination."
+
+#: utils/moonPhaseIndicator.js
+msgid "Moon Phase Indicator"
+msgstr "Moon Phase Indicator"
+
+#: utils/moonPhaseIndicator.js
+msgid "New Moon"
+msgstr "New Moon"
+
+#: utils/moonPhaseIndicator.js
+msgid "Waxing Crescent"
+msgstr "Waxing Crescent"
+
+#: utils/moonPhaseIndicator.js
+msgid "First Quarter"
+msgstr "First Quarter"
+
+#: utils/moonPhaseIndicator.js
+msgid "Waxing Gibbous"
+msgstr "Waxing Gibbous"
+
+#: utils/moonPhaseIndicator.js
+msgid "Full Moon"
+msgstr "Full Moon"
+
+#: utils/moonPhaseIndicator.js
+msgid "Waning Gibbous"
+msgstr "Waning Gibbous"
+
+#: utils/moonPhaseIndicator.js
+msgid "Last Quarter"
+msgstr "Last Quarter"
+
+#: utils/moonPhaseIndicator.js
+msgid "Waning Crescent"
+msgstr "Waning Crescent"
+
+#: ui/customPopupMenu.js
+msgid "CURRENT PHASE:"
+msgstr "CURRENT PHASE:"
+
+#: ui/customPopupMenu.js
+msgid "(Illumination: {value}%)"
+msgstr "(Illumination: {value}%)"
+
+#: ui/customPopupMenu.js
+msgid "NEXT PHASE:"
+msgstr "NEXT PHASE:"
+
+#: ui/customPopupMenu.js
+msgid "DISTANCE:"
+msgstr "DISTANCE:"
+
+#: ui/customPopupMenu.js
+msgid "{value} km"
+msgstr "{value} km"
+
+#: ui/customPopupMenu.js
+msgid "AGE:"
+msgstr "AGE:"
+
+#: ui/customPopupMenu.js
+msgid "{value} Days"
+msgstr "{value} Days"
+
+#: ui/refreshButton.js
+msgid "Refresh"
+msgstr "Refresh"

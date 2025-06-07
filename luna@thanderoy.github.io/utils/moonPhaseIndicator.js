@@ -14,8 +14,8 @@ export const UPDATE_INTERVAL_SECONDS = 3600; // Update every hour
 export const ICON_SIZE = 16; // Icon size in pixels
 export const API_URL = 'https://api.farmsense.net/v1/moonphases/?d=';
 
-// Moon phase constants
-export const MOON_PHASES = Object.freeze({
+// Canonical phase names (will be translation keys)
+export const MOON_PHASE_NAMES = Object.freeze({
     NEW_MOON: 'New Moon',
     WAXING_CRESCENT: 'Waxing Crescent',
     FIRST_QUARTER: 'First Quarter',
@@ -26,38 +26,39 @@ export const MOON_PHASES = Object.freeze({
     WANING_CRESCENT: 'Waning Crescent'
 });
 
-// Map phase names to icon filenames
+// Map API phase names to our canonical phase names
+export const API_TO_CANONICAL_PHASE = Object.freeze({
+    'New Moon': MOON_PHASE_NAMES.NEW_MOON,
+    'Waxing Crescent': MOON_PHASE_NAMES.WAXING_CRESCENT,
+    '1st Quarter': MOON_PHASE_NAMES.FIRST_QUARTER, // API uses '1st Quarter'
+    'Waxing Gibbous': MOON_PHASE_NAMES.WAXING_GIBBOUS,
+    'Full Moon': MOON_PHASE_NAMES.FULL_MOON,
+    'Waning Gibbous': MOON_PHASE_NAMES.WANING_GIBBOUS,
+    '3rd Quarter': MOON_PHASE_NAMES.LAST_QUARTER, // API uses '3rd Quarter'
+    'Waning Crescent': MOON_PHASE_NAMES.WANING_CRESCENT,
+});
+
+// Map our canonical phase names to icon filenames
 export const PHASE_ICONS = Object.freeze({
-    [MOON_PHASES.NEW_MOON]: 'luna_nueva',
-    [MOON_PHASES.WAXING_CRESCENT]: 'luna_creciente',
-    [MOON_PHASES.FIRST_QUARTER]: 'luna_cuarto_creciente',
-    [MOON_PHASES.WAXING_GIBBOUS]: 'luna_gibosa_creciente',
-    [MOON_PHASES.FULL_MOON]: 'luna_llena',
-    [MOON_PHASES.WANING_GIBBOUS]: 'luna_gibosa_menguante',
-    [MOON_PHASES.LAST_QUARTER]: 'luna_cuarto_menguante',
-    [MOON_PHASES.WANING_CRESCENT]: 'luna_menguante'
+    [MOON_PHASE_NAMES.NEW_MOON]: 'luna_nueva',
+    [MOON_PHASE_NAMES.WAXING_CRESCENT]: 'luna_creciente',
+    [MOON_PHASE_NAMES.FIRST_QUARTER]: 'luna_cuarto_creciente',
+    [MOON_PHASE_NAMES.WAXING_GIBBOUS]: 'luna_gibosa_creciente',
+    [MOON_PHASE_NAMES.FULL_MOON]: 'luna_llena',
+    [MOON_PHASE_NAMES.WANING_GIBBOUS]: 'luna_gibosa_menguante',
+    [MOON_PHASE_NAMES.LAST_QUARTER]: 'luna_cuarto_menguante',
+    [MOON_PHASE_NAMES.WANING_CRESCENT]: 'luna_menguante'
 });
 
-// API Phase Names mapping
-export const API_PHASE_NAMES = Object.freeze({
-    'New Moon': MOON_PHASES.NEW_MOON,
-    'Waxing Crescent': MOON_PHASES.WAXING_CRESCENT,
-    '1st Quarter': MOON_PHASES.FIRST_QUARTER,
-    'Waxing Gibbous': MOON_PHASES.WAXING_GIBBOUS,
-    'Full Moon': MOON_PHASES.FULL_MOON,
-    'Waning Gibbous': MOON_PHASES.WANING_GIBBOUS,
-    '3rd Quarter': MOON_PHASES.LAST_QUARTER,
-    'Waning Crescent': MOON_PHASES.WANING_CRESCENT,
-});
-
-// Convert phase names to array for indexing
-export const PHASE_NAMES = Object.values(MOON_PHASES);
+// Array of canonical phase names for ordered operations (e.g., finding next phase)
+export const ORDERED_PHASE_NAMES = Object.values(MOON_PHASE_NAMES);
 
 
 export const MoonPhaseIndicator = GObject.registerClass(
 class MoonPhaseIndicator extends PanelMenu.Button {
-    _init(extension) {
-        super._init(0.0, 'Moon Phase Indicator');
+    _init(extension, gettext) {
+        this._ = gettext; // Store gettext first
+        super._init(0.0, this._('Moon Phase Indicator'));
 
         this._extension = extension;
         this._httpSession = null;
@@ -104,10 +105,10 @@ class MoonPhaseIndicator extends PanelMenu.Button {
     }
 
     _buildMenu() {
-        this._styledMenuItem = new CustomPopupMenu();
+        this._styledMenuItem = new CustomPopupMenu(this._);
         this.menu.addMenuItem(this._styledMenuItem);
 
-        this._refreshButton = new RefreshButton(() => {
+        this._refreshButton = new RefreshButton(this._, () => {
             this._updateMoonPhase();
         });
         this.menu.addMenuItem(this._refreshButton);
@@ -158,9 +159,9 @@ class MoonPhaseIndicator extends PanelMenu.Button {
         const moonAge = moonData.Age;
         const moonDistance = moonData.Distance;
 
-        const phaseName = API_PHASE_NAMES[apiPhaseName] || MOON_PHASES.NEW_MOON;
+        const phaseName = API_TO_CANONICAL_PHASE[apiPhaseName] || MOON_PHASE_NAMES.NEW_MOON;
 
-        const iconName = PHASE_ICONS[phaseName] || PHASE_ICONS[MOON_PHASES.NEW_MOON];
+        const iconName = PHASE_ICONS[phaseName] || PHASE_ICONS[MOON_PHASE_NAMES.NEW_MOON];
         const iconPath = `${this._extension.path}/icons/${iconName}.svg`;
 
         if (GLib.file_test(iconPath, GLib.FileTest.EXISTS)) {
@@ -170,13 +171,13 @@ class MoonPhaseIndicator extends PanelMenu.Button {
             this.moon_phase_icon.icon_name = 'weather-clear-night-symbolic';
         }
 
-        const nextPhaseIndex = (PHASE_NAMES.indexOf(phaseName) + 1) % PHASE_NAMES.length;
-        const nextPhaseName = PHASE_NAMES[nextPhaseIndex];
+        const nextPhaseIndex = (ORDERED_PHASE_NAMES.indexOf(phaseName) + 1) % ORDERED_PHASE_NAMES.length;
+        const nextPhaseName = ORDERED_PHASE_NAMES[nextPhaseIndex];
 
         this._styledMenuItem.updateData({
-            phaseName: phaseName,
+            phaseName: this._(phaseName),
             illumination: Math.round(illumination * 100),
-            nextPhase: nextPhaseName,
+            nextPhase: this._(nextPhaseName),
             distance: Math.round(moonDistance).toLocaleString(),
             age: moonAge.toFixed(2)
         });
