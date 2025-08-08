@@ -12,7 +12,7 @@ import { RefreshButton } from '../ui/refreshButton.js';
 // Constants
 export const UPDATE_INTERVAL_SECONDS = 3600; // Update every hour
 export const ICON_SIZE = 16; // Icon size in pixels
-export const API_URL = 'https://api.farmsense.net/v1/moonphases/?d=';
+export const API_URL = 'https://www.timeanddate.com/scripts/moonphase.php?iso=';
 
 // Moon phase constants
 export const MOON_PHASES = Object.freeze({
@@ -38,17 +38,6 @@ export const PHASE_ICONS = Object.freeze({
     [MOON_PHASES.WANING_CRESCENT]: 'luna_menguante'
 });
 
-// API Phase Names mapping
-export const API_PHASE_NAMES = Object.freeze({
-    'New Moon': MOON_PHASES.NEW_MOON,
-    'Waxing Crescent': MOON_PHASES.WAXING_CRESCENT,
-    '1st Quarter': MOON_PHASES.FIRST_QUARTER,
-    'Waxing Gibbous': MOON_PHASES.WAXING_GIBBOUS,
-    'Full Moon': MOON_PHASES.FULL_MOON,
-    'Waning Gibbous': MOON_PHASES.WANING_GIBBOUS,
-    '3rd Quarter': MOON_PHASES.LAST_QUARTER,
-    'Waning Crescent': MOON_PHASES.WANING_CRESCENT,
-});
 
 // Convert phase names to array for indexing
 export const PHASE_NAMES = Object.values(MOON_PHASES);
@@ -114,9 +103,10 @@ class MoonPhaseIndicator extends PanelMenu.Button {
     }
 
     _updateMoonPhase() {
-        const now = Math.floor(Date.now() / 1000);
-
-        const url = API_URL + now;
+        // The new API requires the date in YYYY-MM-DD format.
+        const now = GLib.DateTime.new_now_local();
+        const isoDate = now.format('%Y-%m-%d');
+        const url = API_URL + isoDate;
 
         let request = Soup.Message.new('GET', url);
 
@@ -133,32 +123,39 @@ class MoonPhaseIndicator extends PanelMenu.Button {
     _onMoonDataReceived(session, result) {
         const bytes = session.send_and_read_finish(result);
         if (bytes === null) {
-            console.error('Failed to get moon phase data');
+            console.error('Failed to get moon phase data from timeanddate.com');
             return;
         }
 
         const decoder = new TextDecoder('utf-8');
         const data = decoder.decode(bytes.get_data());
 
-        const moonData = JSON.parse(data)[0];
+        // ---- ADD THIS LINE FOR DEBUGGING ----
+        console.log(`Received data from timeanddate.com: ${data}`);
+        // ------------------------------------
 
-        if (moonData.Error !== 0) {
-            console.error(`API Error: ${moonData.ErrorMsg}`);
-            return;
+        try {
+            const moonData = JSON.parse(data)[0];
+
+            // Check for a valid response
+            if (moonData.phase === undefined) {
+                console.error('API Error: Invalid response from timeanddate.com');
+                return;
+            }
+
+            this._updateUI(moonData);
+        } catch (e) {
+            console.error(`Error parsing moon phase data: ${e}`);
         }
-
-        this._updateUI(moonData);
-
     }
 
-
     _updateUI(moonData) {
-        const apiPhaseName = moonData.Phase;
-        const illumination = moonData.Illumination;
-        const moonAge = moonData.Age;
-        const moonDistance = moonData.Distance;
+        const phaseIndex = moonData.phase;
+        const illumination = moonData.illum;
+        const moonAge = moonData.age;
+        const moonDistance = moonData.dist;
 
-        const phaseName = API_PHASE_NAMES[apiPhaseName] || MOON_PHASES.NEW_MOON;
+        const phaseName = PHASE_NAMES[phaseIndex] || MOON_PHASES.NEW_MOON;
 
         const iconName = PHASE_ICONS[phaseName] || PHASE_ICONS[MOON_PHASES.NEW_MOON];
         const iconPath = `${this._extension.path}/icons/${iconName}.svg`;
@@ -170,12 +167,12 @@ class MoonPhaseIndicator extends PanelMenu.Button {
             this.moon_phase_icon.icon_name = 'weather-clear-night-symbolic';
         }
 
-        const nextPhaseIndex = (PHASE_NAMES.indexOf(phaseName) + 1) % PHASE_NAMES.length;
+        const nextPhaseIndex = (phaseIndex + 1) % PHASE_NAMES.length;
         const nextPhaseName = PHASE_NAMES[nextPhaseIndex];
 
         this._styledMenuItem.updateData({
             phaseName: phaseName,
-            illumination: Math.round(illumination * 100),
+            illumination: Math.round(illumination),
             nextPhase: nextPhaseName,
             distance: Math.round(moonDistance).toLocaleString(),
             age: moonAge.toFixed(2)
