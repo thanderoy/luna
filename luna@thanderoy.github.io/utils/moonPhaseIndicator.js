@@ -1,21 +1,33 @@
+/**
+ * Moon Phase Indicator
+ * 
+ * Main indicator component for the Luna extension.
+ * Displays current moon phase in the GNOME panel with a popup menu
+ * showing detailed lunar information.
+ * 
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 import GObject from 'gi://GObject';
 import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import St from 'gi://St';
-import Soup from 'gi://Soup';
 
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { CustomPopupMenu } from '../ui/customPopupMenu.js';
 import { RefreshButton } from '../ui/refreshButton.js';
+import { calculateMoonData } from './moonCalculator.js';
 
 // Constants
-export const UPDATE_INTERVAL_SECONDS = 3600; // Update every hour
-export const ICON_SIZE = 16; // Icon size in pixels
-export const API_URL = 'https://www.timeanddate.com/scripts/moonphase.php?iso=';
+const DEFAULT_UPDATE_INTERVAL = 3600; // 1 hour (seconds)
+const MIN_UPDATE_INTERVAL = 900;      // 15 minutes (seconds)
+const MAX_UPDATE_INTERVAL = 86400;    // 24 hours (seconds)
+const ICON_SIZE = 16;
 
-// Moon phase constants
-export const MOON_PHASES = Object.freeze({
+// Moon phase definitions
+const MOON_PHASES = Object.freeze({
     NEW_MOON: 'New Moon',
     WAXING_CRESCENT: 'Waxing Crescent',
     FIRST_QUARTER: 'First Quarter',
@@ -27,7 +39,7 @@ export const MOON_PHASES = Object.freeze({
 });
 
 // Map phase names to icon filenames
-export const PHASE_ICONS = Object.freeze({
+const PHASE_ICONS = Object.freeze({
     [MOON_PHASES.NEW_MOON]: 'luna_nueva',
     [MOON_PHASES.WAXING_CRESCENT]: 'luna_creciente',
     [MOON_PHASES.FIRST_QUARTER]: 'luna_cuarto_creciente',
@@ -38,9 +50,7 @@ export const PHASE_ICONS = Object.freeze({
     [MOON_PHASES.WANING_CRESCENT]: 'luna_menguante'
 });
 
-
-// Convert phase names to array for indexing
-export const PHASE_NAMES = Object.values(MOON_PHASES);
+const PHASE_NAMES = Object.values(MOON_PHASES);
 
 
 export const MoonPhaseIndicator = GObject.registerClass(
@@ -49,27 +59,71 @@ class MoonPhaseIndicator extends PanelMenu.Button {
         super._init(0.0, 'Moon Phase Indicator');
 
         this._extension = extension;
-        this._httpSession = null;
-        this._initHttpSession();
-
-        this.moon_phase_icon = new St.Icon({
-            icon_name: 'weather-clear-night-symbolic', // Fallback icon
-            style_class: 'system-status-icon',
-            icon_size: ICON_SIZE
-        });
-        this.add_child(this.moon_phase_icon);
-
-        this._buildMenu();
-
+        this._settings = null;
+        this._settingsChangedId = null;
+        this._timerId = null;
+        
+        this._initSettings();
+        this._buildUI();
         this._updateMoonPhase();
         this._startTimer();
     }
 
-    _initHttpSession() {
-        if (this._httpSession === null) {
-            this._httpSession = new Soup.Session();
-            this._httpSession.user_agent = 'Luna - Moon Phase Indicator';
+    _initSettings() {
+        try {
+            this._settings = this._extension.getSettings();
+            
+            // Listen for settings changes to restart timer with new interval
+            this._settingsChangedId = this._settings.connect(
+                'changed::update-interval',
+                () => {
+                    console.log('Luna: Update interval changed, restarting timer');
+                    this._stopTimer();
+                    this._startTimer();
+                }
+            );
+        } catch (e) {
+            console.log('Luna: Settings not available, using defaults');
         }
+    }
+
+    _getUpdateInterval() {
+        let interval = DEFAULT_UPDATE_INTERVAL;
+
+        if (this._settings) {
+            try {
+                interval = this._settings.get_int('update-interval');
+            } catch (e) {
+                // Setting not found, use default
+                return DEFAULT_UPDATE_INTERVAL;
+            }
+        }
+
+        // Validate and clamp to the documented range (900-86400 seconds)
+        // to avoid pathological timer behavior
+        if (!Number.isInteger(interval) || interval <= 0) {
+            return DEFAULT_UPDATE_INTERVAL;
+        }
+
+        return Math.max(MIN_UPDATE_INTERVAL, Math.min(MAX_UPDATE_INTERVAL, interval));
+    }
+
+    _buildUI() {
+        // Panel icon
+        this._icon = new St.Icon({
+            icon_name: 'weather-clear-night-symbolic',
+            style_class: 'system-status-icon',
+            icon_size: ICON_SIZE
+        });
+        this.add_child(this._icon);
+
+        // Popup menu content
+        this._menuContent = new CustomPopupMenu();
+        this.menu.addMenuItem(this._menuContent);
+
+        // Refresh button
+        this._refreshButton = new RefreshButton(() => this._updateMoonPhase());
+        this.menu.addMenuItem(this._refreshButton);
     }
 
     _startTimer() {
@@ -77,7 +131,7 @@ class MoonPhaseIndicator extends PanelMenu.Button {
 
         this._timerId = GLib.timeout_add_seconds(
             GLib.PRIORITY_DEFAULT,
-            UPDATE_INTERVAL_SECONDS,
+            this._getUpdateInterval(),
             () => {
                 this._updateMoonPhase();
                 return GLib.SOURCE_CONTINUE;
@@ -92,99 +146,55 @@ class MoonPhaseIndicator extends PanelMenu.Button {
         }
     }
 
-    _buildMenu() {
-        this._styledMenuItem = new CustomPopupMenu();
-        this.menu.addMenuItem(this._styledMenuItem);
-
-        this._refreshButton = new RefreshButton(() => {
-            this._updateMoonPhase();
-        });
-        this.menu.addMenuItem(this._refreshButton);
-    }
-
     _updateMoonPhase() {
-        // The new API requires the date in YYYY-MM-DD format.
-        const now = GLib.DateTime.new_now_local();
-        const isoDate = now.format('%Y-%m-%d');
-        const url = API_URL + isoDate;
-
-        let request = Soup.Message.new('GET', url);
-
-        this._httpSession.send_and_read_async(
-            request,
-            GLib.PRIORITY_DEFAULT,
-            null,
-            this._onMoonDataReceived.bind(this)
-        );
-
+        try {
+            const moonData = calculateMoonData();
+            this._displayMoonData(moonData);
+        } catch (e) {
+            console.error(`Luna: Calculation error: ${e.message}`);
+            Main.notify('Luna', 'Error calculating moon phase');
+        }
         return true;
     }
 
-    _onMoonDataReceived(session, result) {
-        const bytes = session.send_and_read_finish(result);
-        if (bytes === null) {
-            console.error('Failed to get moon phase data from timeanddate.com');
-            return;
-        }
-
-        const decoder = new TextDecoder('utf-8');
-        const data = decoder.decode(bytes.get_data());
-
-        // ---- ADD THIS LINE FOR DEBUGGING ----
-        console.log(`Received data from timeanddate.com: ${data}`);
-        // ------------------------------------
-
-        try {
-            const moonData = JSON.parse(data)[0];
-
-            // Check for a valid response
-            if (moonData.phase === undefined) {
-                console.error('API Error: Invalid response from timeanddate.com');
-                return;
-            }
-
-            this._updateUI(moonData);
-        } catch (e) {
-            console.error(`Error parsing moon phase data: ${e}`);
-        }
-    }
-
-    _updateUI(moonData) {
-        const phaseIndex = moonData.phase;
-        const illumination = moonData.illum;
-        const moonAge = moonData.age;
-        const moonDistance = moonData.dist;
-
-        const phaseName = PHASE_NAMES[phaseIndex] || MOON_PHASES.NEW_MOON;
-
+    _displayMoonData(moonData) {
+        const { phase, illum, age, dist } = moonData;
+        
+        // Get phase name and icon
+        const phaseName = PHASE_NAMES[phase] || MOON_PHASES.NEW_MOON;
         const iconName = PHASE_ICONS[phaseName] || PHASE_ICONS[MOON_PHASES.NEW_MOON];
         const iconPath = `${this._extension.path}/icons/${iconName}.svg`;
 
+        // Update panel icon
         if (GLib.file_test(iconPath, GLib.FileTest.EXISTS)) {
-            this.moon_phase_icon.gicon = Gio.icon_new_for_string(iconPath);
+            this._icon.gicon = Gio.icon_new_for_string(iconPath);
         } else {
-            console.warn(`Moon phase icon not found: ${iconPath}`);
-            this.moon_phase_icon.icon_name = 'weather-clear-night-symbolic';
+            console.warn(`Luna: Icon not found: ${iconPath}`);
+            this._icon.icon_name = 'weather-clear-night-symbolic';
         }
 
-        const nextPhaseIndex = (phaseIndex + 1) % PHASE_NAMES.length;
-        const nextPhaseName = PHASE_NAMES[nextPhaseIndex];
-
-        this._styledMenuItem.updateData({
+        // Update menu content
+        const nextPhaseIndex = (phase + 1) % PHASE_NAMES.length;
+        
+        this._menuContent.updateData({
             phaseName: phaseName,
-            illumination: Math.round(illumination),
-            nextPhase: nextPhaseName,
-            distance: Math.round(moonDistance).toLocaleString(),
-            age: moonAge.toFixed(2)
+            illumination: Math.round(illum),
+            nextPhase: PHASE_NAMES[nextPhaseIndex],
+            distance: Math.round(dist).toLocaleString(),
+            age: age.toFixed(2)
         });
     }
 
     destroy() {
         this._stopTimer();
-        if (this._httpSession !== null) {
-            this._httpSession.abort();
-            this._httpSession = null;
+        
+        // Disconnect settings signal
+        if (this._settings && this._settingsChangedId) {
+            this._settings.disconnect(this._settingsChangedId);
+            this._settingsChangedId = null;
         }
+        
+        this._settings = null;
         super.destroy();
     }
 });
