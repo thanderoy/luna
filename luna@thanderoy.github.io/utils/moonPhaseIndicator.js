@@ -14,7 +14,6 @@ import GLib from 'gi://GLib';
 import St from 'gi://St';
 
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
-import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { CustomPopupMenu } from '../ui/customPopupMenu.js';
 import { calculateMoonData } from './moonCalculator.js';
@@ -69,37 +68,26 @@ class MoonPhaseIndicator extends PanelMenu.Button {
     }
 
     _initSettings() {
-        try {
-            this._settings = this._extension.getSettings();
-            
-            // Listen for settings changes to restart timer with new interval
-            this._settingsChangedId = this._settings.connect(
-                'changed::update-interval',
-                () => {
-                    console.log('Luna: Update interval changed, restarting timer');
-                    this._stopTimer();
-                    this._startTimer();
-                }
-            );
-        } catch (e) {
-            console.log('Luna: Settings not available, using defaults');
-        }
+        this._settings = this._extension.getSettings();
+        
+        // Listen for settings changes to restart timer with new interval
+        this._settingsChangedId = this._settings.connect(
+            'changed::update-interval',
+            () => {
+                this._stopTimer();
+                this._startTimer();
+            }
+        );
     }
 
     _getUpdateInterval() {
-        let interval = DEFAULT_UPDATE_INTERVAL;
-
-        if (this._settings) {
-            try {
-                interval = this._settings.get_int('update-interval');
-            } catch (e) {
-                // Setting not found, use default
-                return DEFAULT_UPDATE_INTERVAL;
-            }
+        if (!this._settings) {
+            return DEFAULT_UPDATE_INTERVAL;
         }
 
+        const interval = this._settings.get_int('update-interval');
+
         // Validate and clamp to the documented range (900-86400 seconds)
-        // to avoid pathological timer behavior
         if (!Number.isInteger(interval) || interval <= 0) {
             return DEFAULT_UPDATE_INTERVAL;
         }
@@ -142,13 +130,8 @@ class MoonPhaseIndicator extends PanelMenu.Button {
     }
 
     _updateMoonPhase() {
-        try {
-            const moonData = calculateMoonData();
-            this._displayMoonData(moonData);
-        } catch (e) {
-            console.error(`Luna: Calculation error: ${e.message}`);
-            Main.notify('Luna', 'Error calculating moon phase');
-        }
+        const moonData = calculateMoonData();
+        this._displayMoonData(moonData);
         return true;
     }
 
