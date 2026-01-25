@@ -1,61 +1,70 @@
-.moon-phase-menu {
-    padding: 8px;
+/* Luna - Moon Phase Indicator Stylesheet
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
+/* Main popup container */
+.moon-popup-container {
+    padding: 0;
 }
 
-/* Header styles */
-.header-label {
-    font-size: 12px;
-    color: #aaa;
-    text-align: center;
-    width: 100%;
+.moon-popup-content {
+    padding: 12px;
+    min-width: 260px;
 }
 
-.phase-label {
-    font-size: 24px;
+/* Header with refresh button */
+.refresh-button {
+    padding: 4px;
+}
+
+/* Hero section (icon + phase + illumination) */
+.hero-section {
+    padding-bottom: 16px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+.moon-main-icon {
+    padding-bottom: 8px;
+}
+
+.phase-title {
+    font-size: 1.5em;
     font-weight: bold;
     text-align: center;
-    width: 100%;
 }
 
 .illumination-label {
-    font-size: 12px;
-    color: #ccc;
-    text-align: center;
-    width: 100%;
-}
-
-/* Information rows */
-.info-box {
-    margin-top: 4px;
-}
-
-.info-label {
-    font-size: 12px;
+    font-size: 1em;
     color: #aaa;
+    text-align: center;
 }
 
-.info-value {
-    font-size: 14px;
+/* Details section */
+.details-section {
+    padding-top: 12px;
+}
+
+.dim-label {
+    color: #999;
+}
+
+.small-caps-label {
+    font-size: 0.8em;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.value-label {
     font-weight: bold;
 }
 
-/* Separator */
-.separator {
-    height: 1px;
-    background-color: rgba(255, 255, 255, 0.5);
-    margin: 8px 0;
-}
-
-/* Refresh button */
-.refresh-button {
-    border-radius: 4px;
+.value-label-large {
+    font-size: 1.1em;
     font-weight: bold;
-    padding: 8px 16px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    transition-duration: 200ms;
 }
 
-.refresh-button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+.columns-container {
+    padding-top: 12px;
 }

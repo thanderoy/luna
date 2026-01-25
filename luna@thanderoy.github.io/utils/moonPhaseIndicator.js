@@ -17,7 +17,6 @@ import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { CustomPopupMenu } from '../ui/customPopupMenu.js';
-import { RefreshButton } from '../ui/refreshButton.js';
 import { calculateMoonData } from './moonCalculator.js';
 
 // Constants
@@ -117,13 +116,9 @@ class MoonPhaseIndicator extends PanelMenu.Button {
         });
         this.add_child(this._icon);
 
-        // Popup menu content
-        this._menuContent = new CustomPopupMenu();
+        // Popup menu content (with integrated refresh button)
+        this._menuContent = new CustomPopupMenu(() => this._updateMoonPhase());
         this.menu.addMenuItem(this._menuContent);
-
-        // Refresh button
-        this._refreshButton = new RefreshButton(() => this._updateMoonPhase());
-        this.menu.addMenuItem(this._refreshButton);
     }
 
     _startTimer() {
@@ -165,9 +160,11 @@ class MoonPhaseIndicator extends PanelMenu.Button {
         const iconName = PHASE_ICONS[phaseName] || PHASE_ICONS[MOON_PHASES.NEW_MOON];
         const iconPath = `${this._extension.path}/icons/${iconName}.svg`;
 
-        // Update panel icon
+        // Update panel icon and popup icon
         if (GLib.file_test(iconPath, GLib.FileTest.EXISTS)) {
-            this._icon.gicon = Gio.icon_new_for_string(iconPath);
+            const gicon = Gio.icon_new_for_string(iconPath);
+            this._icon.gicon = gicon;
+            this._menuContent.setMoonIcon(gicon);
         } else {
             console.warn(`Luna: Icon not found: ${iconPath}`);
             this._icon.icon_name = 'weather-clear-night-symbolic';
