@@ -136,24 +136,4 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
         if (data.distance) this.distanceValue.text = `${data.distance} km`;
         if (data.age) this.ageValue.text = `${data.age} Days`;
     }
-
-    setPhase(phaseName) {
-        this.phaseLabel.text = phaseName;
-    }
-
-    setIllumination(value) {
-        this.illuminationLabel.text = `(Illumination: ${value}%)`;
-    }
-
-    setNextPhase(phaseName) {
-        this.nextPhaseValue.text = phaseName;
-    }
-
-    setDistance(distance) {
-        this.distanceValue.text = `${distance} km`;
-    }
-
-    setAge(age) {
-        this.ageValue.text = `${age} Days`;
-    }
 });
