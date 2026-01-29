@@ -54,6 +54,9 @@
     font-size: 0.8em;
     font-weight: 600;
     letter-spacing: 0.5px;
+    text-overflow: clip;
+    min-width: 80px;
+    text-align: center;
 }
 
 .value-label {

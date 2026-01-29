@@ -1,10 +1,10 @@
 /**
  * Moon Phase Indicator
- * 
+ *
  * Main indicator component for the Luna extension.
  * Displays current moon phase in the GNOME panel with a popup menu
  * showing detailed lunar information.
- * 
+ *
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
@@ -61,7 +61,7 @@ class MoonPhaseIndicator extends PanelMenu.Button {
         this._settings = null;
         this._settingsChangedId = null;
         this._timerId = null;
-        
+
         this._initSettings();
         this._buildUI();
         this._updateMoonPhase();
@@ -71,7 +71,7 @@ class MoonPhaseIndicator extends PanelMenu.Button {
     _initSettings() {
         try {
             this._settings = this._extension.getSettings();
-            
+
             // Listen for settings changes to restart timer with new interval
             this._settingsChangedId = this._settings.connect(
                 'changed::update-interval',
@@ -79,6 +79,15 @@ class MoonPhaseIndicator extends PanelMenu.Button {
                     console.log('Luna: Update interval changed, restarting timer');
                     this._stopTimer();
                     this._startTimer();
+                }
+            );
+
+            // Listen for hemisphere changes to update display
+            this._hemisphereChangedId = this._settings.connect(
+                'changed::hemisphere',
+                () => {
+                    console.log('Luna: Hemisphere changed, updating display');
+                    this._updateMoonPhase();
                 }
             );
         } catch (e) {
@@ -154,17 +163,32 @@ class MoonPhaseIndicator extends PanelMenu.Button {
 
     _displayMoonData(moonData) {
         const { phase, illum, age, dist } = moonData;
-        
+
         // Get phase name and icon
         const phaseName = PHASE_NAMES[phase] || MOON_PHASES.NEW_MOON;
         const iconName = PHASE_ICONS[phaseName] || PHASE_ICONS[MOON_PHASES.NEW_MOON];
         const iconPath = `${this._extension.path}/icons/${iconName}.svg`;
 
+        // Check if we're in the southern hemisphere
+        let isSouthern = false;
+        if (this._settings) {
+            try {
+                isSouthern = this._settings.get_string('hemisphere') === 'southern';
+            } catch (e) {
+                // Setting not found, default to northern
+            }
+        }
+
         // Update panel icon and popup icon
         if (GLib.file_test(iconPath, GLib.FileTest.EXISTS)) {
             const gicon = Gio.icon_new_for_string(iconPath);
             this._icon.gicon = gicon;
-            this._menuContent.setMoonIcon(gicon);
+
+            // Apply horizontal flip for southern hemisphere
+            this._icon.set_pivot_point(0.5, 0.5);
+            this._icon.set_scale(isSouthern ? -1 : 1, 1);
+
+            this._menuContent.setMoonIcon(gicon, isSouthern);
         } else {
             console.warn(`Luna: Icon not found: ${iconPath}`);
             this._icon.icon_name = 'weather-clear-night-symbolic';
@@ -172,7 +196,7 @@ class MoonPhaseIndicator extends PanelMenu.Button {
 
         // Update menu content
         const nextPhaseIndex = (phase + 1) % PHASE_NAMES.length;
-        
+
         this._menuContent.updateData({
             phaseName: phaseName,
             illumination: Math.round(illum),
@@ -184,13 +208,17 @@ class MoonPhaseIndicator extends PanelMenu.Button {
 
     destroy() {
         this._stopTimer();
-        
-        // Disconnect settings signal
+
+        // Disconnect settings signals
         if (this._settings && this._settingsChangedId) {
             this._settings.disconnect(this._settingsChangedId);
             this._settingsChangedId = null;
         }
-        
+        if (this._settings && this._hemisphereChangedId) {
+            this._settings.disconnect(this._hemisphereChangedId);
+            this._hemisphereChangedId = null;
+        }
+
         this._settings = null;
         super.destroy();
     }

@@ -1,9 +1,9 @@
 /**
  * Custom Popup Menu for Luna
- * 
+ *
  * Displays moon phase information in a styled popup layout
  * with hero section and details grid.
- * 
+ *
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
@@ -137,7 +137,8 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
         distCol.add_child(new St.Label({
             text: 'DISTANCE',
             style_class: 'dim-label small-caps-label',
-            x_align: Clutter.ActorAlign.CENTER
+            x_align: Clutter.ActorAlign.CENTER,
+            x_expand: true
         }));
         this._distanceValue = new St.Label({
             text: '',
@@ -155,7 +156,8 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
         ageCol.add_child(new St.Label({
             text: 'AGE',
             style_class: 'dim-label small-caps-label',
-            x_align: Clutter.ActorAlign.CENTER
+            x_align: Clutter.ActorAlign.CENTER,
+            x_expand: true
         }));
         this._ageValue = new St.Label({
             text: '',
@@ -183,9 +185,12 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
         if (data.age) this._ageValue.text = `${data.age} Days`;
     }
 
-    setMoonIcon(gicon) {
+    setMoonIcon(gicon, flipHorizontal = false) {
         if (gicon) {
             this._moonIcon.gicon = gicon;
+            // Apply horizontal flip for southern hemisphere
+            this._moonIcon.set_pivot_point(0.5, 0.5);
+            this._moonIcon.set_scale(flipHorizontal ? -1 : 1, 1);
         }
     }
 });

@@ -1,8 +1,8 @@
 /**
  * Luna Extension Preferences
- * 
+ *
  * GTK4/Adwaita preferences page for Luna - Moon Phase Indicator
- * 
+ *
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
@@ -22,6 +22,37 @@ export default class LunaPreferences extends ExtensionPreferences {
             icon_name: 'preferences-system-symbolic',
         });
         window.add(page);
+
+        // Location settings group
+        const locationGroup = new Adw.PreferencesGroup({
+            title: 'Location Settings',
+            description: 'Configure your viewing location',
+        });
+        page.add(locationGroup);
+
+        // Hemisphere selection (ComboRow dropdown)
+        const hemisphereRow = new Adw.ComboRow({
+            title: 'Hemisphere',
+            subtitle: 'Moon phases appear mirrored in the southern hemisphere',
+            model: Gtk.StringList.new(['Northern', 'Southern']),
+        });
+        locationGroup.add(hemisphereRow);
+
+        // Set initial value from settings
+        const currentHemisphere = settings.get_string('hemisphere');
+        hemisphereRow.selected = currentHemisphere === 'southern' ? 1 : 0;
+
+        // Bind ComboRow to settings
+        hemisphereRow.connect('notify::selected', () => {
+            const value = hemisphereRow.selected === 1 ? 'southern' : 'northern';
+            settings.set_string('hemisphere', value);
+        });
+
+        // Update ComboRow when settings change externally
+        settings.connect('changed::hemisphere', () => {
+            const value = settings.get_string('hemisphere');
+            hemisphereRow.selected = value === 'southern' ? 1 : 0;
+        });
 
         // Update settings group
         const updateGroup = new Adw.PreferencesGroup({
