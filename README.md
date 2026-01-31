@@ -59,6 +59,7 @@ gnome-extensions enable luna@thanderoy.github.io
 ```
 
 **Restart GNOME Shell:**
+
 - **Xorg**: Press `Alt+F2`, type `r`, press Enter
 - **Wayland**: Log out and log back in
 
@@ -66,14 +67,15 @@ gnome-extensions enable luna@thanderoy.github.io
 
 ## ⚙️ Configuration
 
-Open extension preferences:
+Open extension preferences on your Extensions manager or run:
 
 ```bash
 gnome-extensions prefs luna@thanderoy.github.io
 ```
 
 **Available Settings:**
-- **Hemisphere** - Northern or Southern (moon phases appear mirrored in southern hemisphere)
+
+- **Hemisphere Selection** - Northern or Southern (moon phases appear mirrored in southern hemisphere)
 - **Update Interval** - How often to recalculate moon phase (15 min - 24 hours)
 
 ---
@@ -81,11 +83,13 @@ gnome-extensions prefs luna@thanderoy.github.io
 ## 🔧 Troubleshooting
 
 ### Extension not appearing
+
 1. Verify it's enabled: `gnome-extensions info luna@thanderoy.github.io`
 2. Check for errors: `journalctl -f -o cat /usr/bin/gnome-shell | grep Luna`
 3. Restart GNOME Shell
 
 ### Schema compilation errors
+
 Install glib2 development tools:
 
 ```bash
@@ -112,6 +116,7 @@ Luna calculates moon phases using the **Julian Date algorithm**:
 5. Calculates illumination using cosine approximation
 
 This approach is:
+
 - **Accurate** - Based on established astronomical formulas
 - **Offline** - No internet connection required
 - **Fast** - Instant calculations, no network latency
@@ -129,23 +134,6 @@ Contributions are welcome!
 5. Push: `git push origin feature/amazing-feature`
 6. Open a Pull Request
 
-### Development
-
-```bash
-# Clone and make changes
-git clone https://github.com/YOUR_USERNAME/luna.git
-cd luna
-
-# Test changes
-glib-compile-schemas luna@thanderoy.github.io/schemas/
-cp -r luna@thanderoy.github.io ~/.local/share/gnome-shell/extensions/
-
-# Monitor logs
-journalctl -f -o cat /usr/bin/gnome-shell | grep Luna
-```
-
----
-
 ## 📄 License
 
 GNU General Public License v2.0 - see [LICENSE](LICENSE)
@@ -154,10 +142,10 @@ GNU General Public License v2.0 - see [LICENSE](LICENSE)
 
 ## 💖 Support
 
-If you find Luna useful, consider supporting development:
+If you like Luna useful, consider supporting development:
 
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-thanderoy-yellow?style=flat-square&logo=buy-me-a-coffee)](https://buymeacoffee.com/thanderoy)
 
 ---
 
-Made with 🌙 by [thanderoy](https://github.com/thanderoy)
+Made with ☕ by [thanderoy](https://github.com/thanderoy)
