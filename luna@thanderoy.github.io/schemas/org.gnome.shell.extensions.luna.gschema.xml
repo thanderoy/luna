@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
   <schema id="org.gnome.shell.extensions.luna" path="/org/gnome/shell/extensions/luna/">
-    
+
     <key name="update-interval" type="i">
       <default>3600</default>
       <summary>Update Interval</summary>
       <description>How often to recalculate moon phase data, in seconds. Default is 3600 (1 hour). Range: 900 (15 min) to 86400 (24 hours).</description>
     </key>
-    
+
+    <key name="hemisphere" type="s">
+      <default>'northern'</default>
+      <summary>Hemisphere</summary>
+      <description>Select your hemisphere. In the southern hemisphere, moon phases appear horizontally mirrored.</description>
+    </key>
+
   </schema>
 </schemalist>

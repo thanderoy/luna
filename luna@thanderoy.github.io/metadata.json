@@ -5,7 +5,7 @@
   "original-author": "roy.thande@gmail.com",
   "url": "https://github.com/thanderoy/luna",
   "uuid": "luna@thanderoy.github.io",
-  "version": 6,
+  "version": 7,
   "settings-schema": "org.gnome.shell.extensions.luna",
   "donations": { "buymeacoffee": "thanderoy" }
 }
