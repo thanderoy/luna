@@ -14,5 +14,11 @@
       <description>Select your hemisphere. In the southern hemisphere, moon phases appear horizontally mirrored.</description>
     </key>
 
+    <key name="panel-position" type="s">
+      <default>'right'</default>
+      <summary>Panel Position</summary>
+      <description>Which panel box to place the indicator in: 'left', 'center', or 'right'.</description>
+    </key>
+
   </schema>
 </schemalist>
