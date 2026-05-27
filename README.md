@@ -15,6 +15,7 @@ Luna is a GNOME Shell extension that displays the current moon phase directly in
   - Distance from Earth (km)
   - Lunar age (days)
 - **Hemisphere Support** - Toggle between Northern/Southern hemisphere (icons flip accordingly)
+- **Configurable Panel Position** - Place Luna in the left, center, or right section of the top bar
 - **Works Offline** - Uses astronomical formulas, no internet required
 - **Configurable** - Adjustable update interval (15 min - 24 hours)
 - **Lightweight** - Minimal resource usage
@@ -75,6 +76,7 @@ gnome-extensions prefs luna@thanderoy.github.io
 
 **Available Settings:**
 
+- **Panel Position** - Place Luna in the Left, Center, or Right section of the top bar
 - **Hemisphere Selection** - Northern or Southern (moon phases appear mirrored in southern hemisphere)
 - **Update Interval** - How often to recalculate moon phase (15 min - 24 hours)
 

@@ -54,6 +54,39 @@ export default class LunaPreferences extends ExtensionPreferences {
             hemisphereRow.selected = value === 'southern' ? 1 : 0;
         });
 
+        // Panel settings group
+        const panelGroup = new Adw.PreferencesGroup({
+            title: 'Panel Settings',
+            description: 'Configure where Luna appears in the panel',
+        });
+        page.add(panelGroup);
+
+        // Panel position selection
+        const positionRow = new Adw.ComboRow({
+            title: 'Panel Position',
+            subtitle: 'Which section of the top bar to place Luna in',
+            model: Gtk.StringList.new(['Left', 'Center', 'Right']),
+        });
+        panelGroup.add(positionRow);
+
+        const PANEL_POSITIONS = ['left', 'center', 'right'];
+        const DEFAULT_POSITION_INDEX = 2; // 'right', matches schema default
+
+        const toIndex = value => {
+            const i = PANEL_POSITIONS.indexOf(value);
+            return i === -1 ? DEFAULT_POSITION_INDEX : i;
+        };
+
+        positionRow.selected = toIndex(settings.get_string('panel-position'));
+
+        positionRow.connect('notify::selected', () => {
+            settings.set_string('panel-position', PANEL_POSITIONS[positionRow.selected]);
+        });
+
+        settings.connect('changed::panel-position', () => {
+            positionRow.selected = toIndex(settings.get_string('panel-position'));
+        });
+
         // Update settings group
         const updateGroup = new Adw.PreferencesGroup({
             title: 'Update Settings',
