@@ -58,8 +58,6 @@ class MoonPhaseIndicator extends PanelMenu.Button {
         super._init(0.0, 'Moon Phase Indicator');
 
         this._extension = extension;
-        this._settings = null;
-        this._settingsChangedId = null;
         this._timerId = null;
 
         this._initSettings();
@@ -69,50 +67,24 @@ class MoonPhaseIndicator extends PanelMenu.Button {
     }
 
     _initSettings() {
-        try {
-            this._settings = this._extension.getSettings();
+        this._settings = this._extension.getSettings();
 
-            // Listen for settings changes to restart timer with new interval
-            this._settingsChangedId = this._settings.connect(
-                'changed::update-interval',
-                () => {
-                    console.log('Luna: Update interval changed, restarting timer');
-                    this._stopTimer();
-                    this._startTimer();
-                }
-            );
+        this._settingsChangedId = this._settings.connect(
+            'changed::update-interval',
+            () => {
+                this._stopTimer();
+                this._startTimer();
+            }
+        );
 
-            // Listen for hemisphere changes to update display
-            this._hemisphereChangedId = this._settings.connect(
-                'changed::hemisphere',
-                () => {
-                    console.log('Luna: Hemisphere changed, updating display');
-                    this._updateMoonPhase();
-                }
-            );
-        } catch (e) {
-            console.log('Luna: Settings not available, using defaults');
-        }
+        this._hemisphereChangedId = this._settings.connect(
+            'changed::hemisphere',
+            () => this._updateMoonPhase()
+        );
     }
 
     _getUpdateInterval() {
-        let interval = DEFAULT_UPDATE_INTERVAL;
-
-        if (this._settings) {
-            try {
-                interval = this._settings.get_int('update-interval');
-            } catch (e) {
-                // Setting not found, use default
-                return DEFAULT_UPDATE_INTERVAL;
-            }
-        }
-
-        // Validate and clamp to the documented range (900-86400 seconds)
-        // to avoid pathological timer behavior
-        if (!Number.isInteger(interval) || interval <= 0) {
-            return DEFAULT_UPDATE_INTERVAL;
-        }
-
+        const interval = this._settings.get_int('update-interval');
         return Math.max(MIN_UPDATE_INTERVAL, Math.min(MAX_UPDATE_INTERVAL, interval));
     }
 
@@ -169,15 +141,7 @@ class MoonPhaseIndicator extends PanelMenu.Button {
         const iconName = PHASE_ICONS[phaseName] || PHASE_ICONS[MOON_PHASES.NEW_MOON];
         const iconPath = `${this._extension.path}/icons/${iconName}.svg`;
 
-        // Check if we're in the southern hemisphere
-        let isSouthern = false;
-        if (this._settings) {
-            try {
-                isSouthern = this._settings.get_string('hemisphere') === 'southern';
-            } catch (e) {
-                // Setting not found, default to northern
-            }
-        }
+        const isSouthern = this._settings.get_string('hemisphere') === 'southern';
 
         // Update panel icon and popup icon
         if (GLib.file_test(iconPath, GLib.FileTest.EXISTS)) {
