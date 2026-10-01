@@ -12,6 +12,26 @@ import St from 'gi://St';
 import Clutter from 'gi://Clutter';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
+// St.BoxLayout gained `orientation` in GNOME 48 and deprecated `vertical`.
+// GNOME 46/47 only know `vertical`, and GJS throws on unknown properties.
+const HAS_ORIENTATION = !!GObject.Object.find_property.call(St.BoxLayout, 'orientation');
+
+/**
+ * Build the St.BoxLayout direction property for the running shell
+ * @param {boolean} vertical - Stack children vertically
+ * @returns {Object} Constructor params to spread into St.BoxLayout
+ */
+function boxDirection(vertical) {
+    if (HAS_ORIENTATION) {
+        return {
+            orientation: vertical
+                ? Clutter.Orientation.VERTICAL
+                : Clutter.Orientation.HORIZONTAL
+        };
+    }
+    return { vertical };
+}
+
 export const CustomPopupMenu = GObject.registerClass(
 class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
     _init(onRefresh) {
@@ -28,7 +48,7 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
     _buildLayout() {
         // Main container
         this._mainContainer = new St.BoxLayout({
-            vertical: true,
+            ...boxDirection(true),
             x_expand: true,
             style_class: 'moon-popup-content'
         });
@@ -38,7 +58,7 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
         // SECTION 1: Header (Refresh button)
         // =========================================
         const headerBox = new St.BoxLayout({
-            vertical: false,
+            ...boxDirection(false),
             x_align: Clutter.ActorAlign.END,
             x_expand: true
         });
@@ -63,7 +83,7 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
         // SECTION 2: Hero Section (Icon & Main Info)
         // =========================================
         const heroBox = new St.BoxLayout({
-            vertical: true,
+            ...boxDirection(true),
             x_align: Clutter.ActorAlign.CENTER,
             x_expand: true,
             style_class: 'hero-section'
@@ -99,14 +119,14 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
         // SECTION 3: Details Section
         // =========================================
         const detailsBox = new St.BoxLayout({
-            vertical: true,
+            ...boxDirection(true),
             x_expand: true,
             style_class: 'details-section'
         });
 
         // Next Phase row (centered)
         const nextPhaseRow = new St.BoxLayout({
-            vertical: false,
+            ...boxDirection(false),
             x_align: Clutter.ActorAlign.CENTER,
             x_expand: true
         });
@@ -123,14 +143,14 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
 
         // Two-column grid (Distance & Age)
         const columnsContainer = new St.BoxLayout({
-            vertical: false,
+            ...boxDirection(false),
             x_expand: true,
             style_class: 'columns-container'
         });
 
         // Left column (Distance)
         const distCol = new St.BoxLayout({
-            vertical: true,
+            ...boxDirection(true),
             x_expand: true,
             x_align: Clutter.ActorAlign.CENTER
         });
@@ -149,7 +169,7 @@ class CustomPopupMenu extends PopupMenu.PopupBaseMenuItem {
 
         // Right column (Age)
         const ageCol = new St.BoxLayout({
-            vertical: true,
+            ...boxDirection(true),
             x_expand: true,
             x_align: Clutter.ActorAlign.CENTER
         });
