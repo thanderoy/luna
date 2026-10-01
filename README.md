@@ -36,6 +36,8 @@ Luna is a GNOME Shell extension that displays the current moon phase directly in
 
 ## 🛠 Installation
 
+Supports GNOME Shell **46, 47, 48, 49 and 50**.
+
 ### From GNOME Extensions Website
 
 Install Luna from [extensions.gnome.org](https://extensions.gnome.org/extension/luna/).
@@ -61,8 +63,8 @@ gnome-extensions enable luna@thanderoy.github.io
 
 **Restart GNOME Shell:**
 
-- **Xorg**: Press `Alt+F2`, type `r`, press Enter
-- **Wayland**: Log out and log back in
+- **Wayland**: Log out and log back in (GNOME 50 is Wayland-only)
+- **Xorg** (GNOME 46–48 only): Press `Alt+F2`, type `r`, press Enter
 
 ---
 
@@ -87,6 +89,7 @@ gnome-extensions prefs luna@thanderoy.github.io
 ### Extension not appearing
 
 1. Verify it's enabled: `gnome-extensions info luna@thanderoy.github.io`
+   - `State: OUT OF DATE` means your GNOME Shell version isn't listed in `metadata.json`. Check `gnome-shell --version` and update Luna.
 2. Check for errors: `journalctl -f -o cat /usr/bin/gnome-shell | grep Luna`
 3. Restart GNOME Shell
 
@@ -131,7 +134,8 @@ Contributions are welcome!
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Test in a GNOME Shell environment
+3. Test in a GNOME Shell environment. On GNOME 49+ you can run a nested shell in a window instead of logging out:
+   `dbus-run-session gnome-shell --devkit --wayland` (needs Mutter's `mutter-devkit` viewer installed)
 4. Commit: `git commit -m 'Add amazing feature'`
 5. Push: `git push origin feature/amazing-feature`
 6. Open a Pull Request

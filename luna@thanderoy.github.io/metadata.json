@@ -1,11 +1,11 @@
 {
   "name": "Luna - Moon Phase Indicator",
   "description": "Displays current moon phase using astronomical calculations. Works offline.",
-  "shell-version": ["46", "47", "48"],
+  "shell-version": ["46", "47", "48", "49", "50"],
   "original-author": "roy.thande@gmail.com",
   "url": "https://github.com/thanderoy/luna",
   "uuid": "luna@thanderoy.github.io",
-  "version": "7.1.1",
+  "version": "7.2.0",
   "settings-schema": "org.gnome.shell.extensions.luna",
   "donations": { "buymeacoffee": "thanderoy" }
 }
